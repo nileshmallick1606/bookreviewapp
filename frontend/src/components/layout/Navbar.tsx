@@ -15,13 +15,13 @@ import {
   Avatar
 } from '@mui/material';
 import { BookOutlined as BookIcon } from '@mui/icons-material';
-import { useAppSelector, useAppDispatch } from '../../hooks/reduxHooks';
-import { logout } from '../../store/slices/authSlice';
+import { useAppSelector } from '../../hooks/reduxHooks';
+import useLogout from '../../hooks/useLogout';
 
 const Navbar: React.FC = () => {
   const router = useRouter();
-  const dispatch = useAppDispatch();
   const { isAuthenticated, user } = useAppSelector(state => state.auth);
+  const { handleLogout: logout } = useLogout();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -33,9 +33,8 @@ const Navbar: React.FC = () => {
   };
   
   const handleLogout = () => {
-    dispatch(logout());
+    logout();
     handleMenuClose();
-    router.push('/');
   };
   
   return (

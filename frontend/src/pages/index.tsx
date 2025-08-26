@@ -54,7 +54,7 @@ const Home: NextPage = () => {
                       Register
                     </Button>
                   </Link>
-                  <Link href="/login" passHref>
+                  <Link href="/auth/login" passHref>
                     <Button
                       variant="outlined"
                       color="primary"

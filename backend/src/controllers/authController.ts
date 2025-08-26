@@ -4,7 +4,7 @@ import { createNewUser, findUserByEmail } from '../services/userService';
 import { validateEmail, validateName } from '../utils/validation';
 import { validatePasswordStrength, verifyPassword } from '../utils/password';
 import { toUserResponse } from '../models/user';
-import { generateToken, setTokenCookie } from '../utils/jwt';
+import { generateToken, setTokenCookie, clearTokenCookie } from '../utils/jwt';
 
 /**
  * User registration controller
@@ -166,4 +166,21 @@ export const login = async (
   } catch (error) {
     next(error);
   }
+};
+
+/**
+ * User logout controller
+ * Clears the JWT token cookie
+ */
+export const logout = (req: Request, res: Response) => {
+  // Clear the JWT cookie
+  clearTokenCookie(res);
+  
+  return res.status(200).json({
+    status: 'success',
+    data: {
+      message: 'Logout successful'
+    },
+    error: null
+  });
 };

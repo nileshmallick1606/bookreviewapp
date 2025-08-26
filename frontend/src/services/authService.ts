@@ -130,3 +130,28 @@ export const getCurrentUser = async (): Promise<AuthResponse> => {
     } as ErrorResponse;
   }
 };
+
+/**
+ * Log out the current user
+ * @returns Promise with success message or error
+ */
+export const logout = async (): Promise<{ message: string }> => {
+  try {
+    const response = await axios.post<{ status: string; data: { message: string }; error: null }>(
+      `${API_BASE_URL}/auth/logout`,
+      {},
+      { withCredentials: true }
+    );
+    
+    return { message: response.data.data.message };
+  } catch (error) {
+    throw {
+      status: 'error',
+      data: null,
+      error: {
+        code: 500,
+        message: 'Failed to log out'
+      }
+    } as ErrorResponse;
+  }
+};

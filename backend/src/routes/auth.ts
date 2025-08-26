@@ -1,6 +1,6 @@
 // src/routes/auth.ts
 import { Router } from 'express';
-import { register, login } from '../controllers/authController';
+import { register, login, logout } from '../controllers/authController';
 import { authenticate } from '../middlewares/auth';
 
 const router = Router();
@@ -8,6 +8,7 @@ const router = Router();
 // Public auth endpoints
 router.post('/register', register);
 router.post('/login', login);
+router.post('/logout', logout);
 
 // Protected endpoint example - get current user
 router.get('/me', authenticate, (req, res) => {
