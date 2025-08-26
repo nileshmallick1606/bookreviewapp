@@ -7,6 +7,11 @@ import {
   initiateFacebookAuth,
   facebookAuthCallback
 } from '../controllers/socialAuthController';
+import {
+  requestPasswordReset,
+  validatePasswordResetToken,
+  resetPassword
+} from '../controllers/passwordResetController';
 import { authenticate } from '../middlewares/auth';
 
 const router = Router();
@@ -21,6 +26,11 @@ router.get('/google', initiateGoogleAuth);
 router.get('/google/callback', googleAuthCallback);
 router.get('/facebook', initiateFacebookAuth);
 router.get('/facebook/callback', facebookAuthCallback);
+
+// Password reset endpoints
+router.post('/password-reset', requestPasswordReset);
+router.get('/password-reset/:token', validatePasswordResetToken);
+router.post('/password-reset/:token', resetPassword);
 
 // Protected endpoint example - get current user
 router.get('/me', authenticate, (req, res) => {

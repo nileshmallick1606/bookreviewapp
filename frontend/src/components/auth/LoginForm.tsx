@@ -142,17 +142,25 @@ const LoginForm: React.FC = () => {
           helperText={validationErrors.password}
         />
         
-        <FormControlLabel
-          control={
-            <Checkbox
-              name="rememberMe"
-              color="primary"
-              checked={formData.rememberMe}
-              onChange={handleChange}
-            />
-          }
-          label="Remember me"
-        />
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                name="rememberMe"
+                color="primary"
+                checked={formData.rememberMe}
+                onChange={handleChange}
+              />
+            }
+            label="Remember me"
+          />
+          
+          <Link href="/auth/forgot-password">
+            <Typography variant="body2" component="span" sx={{ cursor: 'pointer', color: 'primary.main' }}>
+              Forgot password?
+            </Typography>
+          </Link>
+        </Box>
         
         <Button
           type="submit"

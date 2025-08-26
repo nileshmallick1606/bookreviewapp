@@ -48,6 +48,24 @@ export const verifyToken = <T>(token: string): T | null => {
 };
 
 /**
+ * Get the expiration date of a JWT token
+ * @param token JWT token string
+ * @returns The expiration date or null if invalid
+ */
+export const getTokenExpiration = (token: string): Date | null => {
+  try {
+    const decoded = jwt.decode(token) as { exp?: number };
+    if (!decoded || !decoded.exp) {
+      return null;
+    }
+    // The exp claim is in seconds, convert to milliseconds
+    return new Date(decoded.exp * 1000);
+  } catch (error) {
+    return null;
+  }
+};
+
+/**
  * Clear the JWT cookie
  * @param res Express response object
  */

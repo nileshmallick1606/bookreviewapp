@@ -1,6 +1,7 @@
 // src/middlewares/auth.ts
 import { Request, Response, NextFunction } from 'express';
 import { verifyToken } from '../utils/jwt';
+import { isTokenBlacklisted } from '../utils/tokenBlacklist';
 
 // Extended Request interface to include user property
 declare global {
@@ -40,6 +41,19 @@ export const authenticate = async (
         error: {
           code: 401,
           message: 'Authentication required'
+        }
+      });
+    }
+
+    // Check if token is blacklisted
+    const isBlacklisted = await isTokenBlacklisted(token);
+    if (isBlacklisted) {
+      return res.status(401).json({
+        status: 'error',
+        data: null,
+        error: {
+          code: 401,
+          message: 'Token has been revoked'
         }
       });
     }

@@ -4,7 +4,8 @@ import { createNewUser, findUserByEmail } from '../services/userService';
 import { validateEmail, validateName } from '../utils/validation';
 import { validatePasswordStrength, verifyPassword } from '../utils/password';
 import { toUserResponse } from '../models/user';
-import { generateToken, setTokenCookie, clearTokenCookie } from '../utils/jwt';
+import { generateToken, setTokenCookie, clearTokenCookie, getTokenExpiration } from '../utils/jwt';
+import { blacklistToken } from '../utils/tokenBlacklist';
 
 /**
  * User registration controller
@@ -128,6 +129,18 @@ export const login = async (
       });
     }
     
+    // Check if user has a password (might be social login only)
+    if (!user.password) {
+      return res.status(401).json({
+        status: 'error',
+        data: null,
+        error: {
+          code: 401,
+          message: 'This account requires social login'
+        }
+      });
+    }
+    
     // Verify password
     const isPasswordValid = await verifyPassword(password, user.password);
     
@@ -170,17 +183,34 @@ export const login = async (
 
 /**
  * User logout controller
- * Clears the JWT token cookie
+ * Clears the JWT token cookie and invalidates the token
  */
-export const logout = (req: Request, res: Response) => {
-  // Clear the JWT cookie
-  clearTokenCookie(res);
-  
-  return res.status(200).json({
-    status: 'success',
-    data: {
-      message: 'Logout successful'
-    },
-    error: null
-  });
+export const logout = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    // Get the token from cookies
+    const token = req.cookies?.jwt;
+    
+    if (token) {
+      // Get token expiration
+      const expiration = getTokenExpiration(token);
+      
+      // Add token to blacklist
+      if (expiration) {
+        await blacklistToken(token, expiration);
+      }
+    }
+    
+    // Clear the JWT cookie
+    clearTokenCookie(res);
+    
+    return res.status(200).json({
+      status: 'success',
+      data: {
+        message: 'Logout successful'
+      },
+      error: null
+    });
+  } catch (error) {
+    next(error);
+  }
 };

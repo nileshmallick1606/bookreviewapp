@@ -177,3 +177,34 @@ export const updateUser = async (user: User): Promise<User> => {
     throw new Error('Failed to update user');
   }
 };
+
+/**
+ * Update a user's password
+ * @param userId ID of the user
+ * @param newPassword New password (will be hashed)
+ * @returns The updated user
+ */
+export const updateUserPassword = async (
+  userId: string,
+  newPassword: string
+): Promise<User> => {
+  try {
+    const user = await getUserById(userId);
+    
+    if (!user) {
+      throw new Error('User not found');
+    }
+    
+    // Hash the new password
+    const hashedPassword = await hashPassword(newPassword);
+    
+    // Update the user's password
+    user.password = hashedPassword;
+    
+    // Save the updated user
+    return await updateUser(user);
+  } catch (error) {
+    console.error('Error updating user password:', error);
+    throw new Error('Failed to update password');
+  }
+};
