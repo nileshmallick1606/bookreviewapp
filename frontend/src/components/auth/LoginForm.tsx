@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 import { loginUser, clearError } from '../../store/slices/authSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
+import SocialLogin from './SocialLogin';
 
 // Validation types
 interface ValidationErrors {
@@ -162,6 +163,16 @@ const LoginForm: React.FC = () => {
         >
           {loading ? <CircularProgress size={24} /> : 'Sign In'}
         </Button>
+        
+        {/* Social Login Buttons */}
+        <SocialLogin 
+          onError={(message) => {
+            dispatch({
+              type: 'auth/setError',
+              payload: message
+            });
+          }} 
+        />
         
         <Box sx={{ textAlign: 'center' }}>
           <Link href="/auth/register">

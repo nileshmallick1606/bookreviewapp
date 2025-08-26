@@ -118,14 +118,13 @@ export const createNewUser = async (userData: UserInput): Promise<User> => {
       throw new Error('Email already in use');
     }
     
-    // Hash the password
-    const hashedPassword = await hashPassword(userData.password);
+    // Create new user object
+    const user = createUser(userData);
     
-    // Create new user with hashed password
-    const user = createUser({
-      ...userData,
-      password: hashedPassword
-    });
+    // Hash the password if provided
+    if (userData.password) {
+      user.password = await hashPassword(userData.password);
+    }
     
     // Save user to file
     const userFilePath = path.resolve(USER_DATA_DIR, `${user.id}.json`);
@@ -141,5 +140,40 @@ export const createNewUser = async (userData: UserInput): Promise<User> => {
       throw error;
     }
     throw new Error('Failed to create user');
+  }
+};
+
+/**
+ * Update an existing user's data
+ * @param user The user object with updated values
+ * @returns The updated user object
+ */
+export const updateUser = async (user: User): Promise<User> => {
+  try {
+    await initStorage();
+    
+    // Make sure the user exists
+    const existingUser = await getUserById(user.id);
+    if (!existingUser) {
+      throw new Error('User not found');
+    }
+    
+    // Update the user's updatedAt timestamp
+    user.updatedAt = new Date().toISOString();
+    
+    // Save updated user to file
+    const userFilePath = path.resolve(USER_DATA_DIR, `${user.id}.json`);
+    await fs.writeFile(userFilePath, JSON.stringify(user, null, 2));
+    
+    // If email changed, update the index
+    if (existingUser.email !== user.email) {
+      await updateEmailIndex(user.email, user.id);
+      // TODO: Remove old email from index if implemented
+    }
+    
+    return user;
+  } catch (error) {
+    console.error('Error updating user:', error);
+    throw new Error('Failed to update user');
   }
 };

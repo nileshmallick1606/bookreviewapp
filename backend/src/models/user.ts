@@ -2,13 +2,23 @@
 import { v4 as uuidv4 } from 'uuid';
 
 /**
+ * Social provider information
+ */
+export interface SocialProvider {
+  provider: 'google' | 'facebook';
+  providerId: string;
+  profileData?: Record<string, any>;
+}
+
+/**
  * User interface defining the structure of user data
  */
 export interface User {
   id: string;
   email: string;
-  password: string; // This will store the hashed password
+  password?: string; // This will store the hashed password, optional for social login
   name: string;
+  socialProviders?: SocialProvider[];
   createdAt: string;
   updatedAt: string;
 }
@@ -18,8 +28,9 @@ export interface User {
  */
 export interface UserInput {
   email: string;
-  password: string;
+  password?: string; // Optional for social login
   name: string;
+  socialProvider?: SocialProvider;
 }
 
 /**
@@ -30,14 +41,25 @@ export interface UserInput {
 export const createUser = (data: UserInput): User => {
   const now = new Date().toISOString();
   
-  return {
+  const user: User = {
     id: uuidv4(),
     email: data.email.toLowerCase(),
-    password: data.password, // Note: This should be hashed before storing
     name: data.name,
     createdAt: now,
     updatedAt: now
   };
+
+  // Add password if provided
+  if (data.password) {
+    user.password = data.password;
+  }
+
+  // Add social provider if provided
+  if (data.socialProvider) {
+    user.socialProviders = [data.socialProvider];
+  }
+  
+  return user;
 };
 
 /**

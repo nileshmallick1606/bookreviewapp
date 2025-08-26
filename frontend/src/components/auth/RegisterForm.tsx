@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 import { registerUser, clearError } from '../../store/slices/authSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
+import SocialLogin from './SocialLogin';
 
 // Validation types
 interface ValidationErrors {
@@ -198,6 +199,16 @@ const RegisterForm: React.FC = () => {
         >
           {loading ? <CircularProgress size={24} /> : 'Register'}
         </Button>
+        
+        {/* Social Login Buttons */}
+        <SocialLogin 
+          onError={(message) => {
+            dispatch({
+              type: 'auth/setError',
+              payload: message
+            });
+          }} 
+        />
         
         <Box sx={{ textAlign: 'center' }}>
           <Link href="/login">
