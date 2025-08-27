@@ -4,6 +4,7 @@ import { booksRouter } from './books';
 import { usersRouter } from './users';
 import { reviewsRouter } from './reviews';
 import { authRouter } from './auth';
+import { dataRouter } from './data';
 
 const router = Router();
 
@@ -12,5 +13,6 @@ router.use('/auth', authRouter);
 router.use('/books', booksRouter);
 router.use('/users', usersRouter);
 router.use('/reviews', reviewsRouter);
+router.use('/data', dataRouter);
 
 export { router as apiRouter };
