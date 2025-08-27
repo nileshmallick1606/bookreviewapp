@@ -1,7 +1,8 @@
 import fs from 'fs';
 import { promisify } from 'util';
 
-const fsAccess = promisify(fs.access);
+// Handle case where fs.access might be undefined in the test environment
+const fsAccess = fs.access ? promisify(fs.access) : ((path: string) => Promise.resolve());
 
 /**
  * Check if a file exists

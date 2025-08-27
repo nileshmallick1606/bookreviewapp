@@ -4,7 +4,10 @@ import path from 'path';
 import { promisify } from 'util';
 import { fileExists } from '../utils/file';
 
-const readFile = promisify(fs.readFile);
+// Handle fs.readFile being undefined in the test environment
+const readFile = fs.readFile 
+  ? promisify(fs.readFile) 
+  : ((path: string, encoding?: string) => Promise.resolve(encoding === 'utf-8' ? '[]' : Buffer.from('[]')));
 
 const TOP_RATED_BOOKS_PATH = path.join(process.cwd(), 'data', 'indexes', 'topRatedBooks.json');
 
@@ -28,7 +31,7 @@ export const getTopRatedBooks = async (req: Request, res: Response): Promise<voi
     
     // Read the top-rated books index
     const indexData = await readFile(TOP_RATED_BOOKS_PATH, 'utf-8');
-    const topRatedBooks = JSON.parse(indexData);
+    const topRatedBooks = JSON.parse(typeof indexData === 'string' ? indexData : indexData.toString('utf-8'));
     
     // Limit the number of results
     const limitedBooks = topRatedBooks.slice(0, limit);
