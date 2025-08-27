@@ -3,10 +3,11 @@ import type { NextPage } from 'next';
 import { useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { Button, Box } from '@mui/material';
+import { Button, Box, Divider } from '@mui/material';
 import styles from '@/styles/Home.module.css';
 import { useAppSelector, useAppDispatch } from '../hooks/reduxHooks';
 import { fetchCurrentUser } from '../store/slices/authSlice';
+import TopRatedBooks from '../components/home/TopRatedBooks';
 
 const Home: NextPage = () => {
   const dispatch = useAppDispatch();
@@ -77,6 +78,11 @@ const Home: NextPage = () => {
             </Box>
           </div>
         </div>
+        
+        <Divider sx={{ my: 4 }} />
+        
+        {/* Top-rated books section */}
+        <TopRatedBooks />
       </main>
 
       <footer className={styles.footer}>

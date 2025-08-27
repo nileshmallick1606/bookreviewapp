@@ -158,6 +158,16 @@ export const updateReviewById = async (reviewId: string, params: ReviewUpdatePar
     // Write updated review back to file
     await writeFile(reviewPath, JSON.stringify(updatedReview, null, 2));
     
+    // Recalculate book rating if the rating changed
+    if (params.rating !== undefined && params.rating !== review.rating) {
+      try {
+        await calculateAverageRating(updatedReview.bookId);
+      } catch (ratingError) {
+        console.error(`Error recalculating rating for book ${updatedReview.bookId}:`, ratingError);
+        // Continue despite rating calculation error
+      }
+    }
+    
     return updatedReview;
   } catch (error) {
     if (error instanceof NotFoundError) {
@@ -188,6 +198,14 @@ export const deleteReviewById = async (reviewId: string): Promise<void> => {
     
     // Remove from user index
     await removeFromUserReviewIndex(review.userId, reviewId);
+    
+    // Recalculate book rating after review deletion
+    try {
+      await calculateAverageRating(review.bookId);
+    } catch (ratingError) {
+      console.error(`Error recalculating rating for book ${review.bookId} after review deletion:`, ratingError);
+      // Continue despite rating calculation error
+    }
   } catch (error) {
     if (error instanceof NotFoundError) {
       throw error;

@@ -10,6 +10,7 @@ const router = Router();
 router.get('/', BookController.getBooks);
 router.get('/search', BookController.searchBooks);
 router.get('/suggestions', BookController.getSuggestions);
+router.get('/top-rated', BookController.getTopRatedBooks);
 router.get('/:id', BookController.getBookById);
 
 // Import the upload middleware

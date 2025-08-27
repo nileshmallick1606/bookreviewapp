@@ -28,6 +28,9 @@ app.use(express.urlencoded({ extended: true })); // Parse URL-encoded request bo
 // Serve static uploads
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
+// Import the function to update top-rated books index
+import { updateTopRatedBooksIndex } from './services/book/book.service';
+
 // API routes
 app.use('/api/v1', apiRouter);
 
@@ -41,8 +44,16 @@ app.use(errorHandler);
 
 // Start the server
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
+  
+  // Update the top-rated books index when the server starts
+  try {
+    await updateTopRatedBooksIndex();
+    console.log('Top-rated books index updated successfully');
+  } catch (error) {
+    console.error('Failed to update top-rated books index:', error);
+  }
 });
 
 export default app;

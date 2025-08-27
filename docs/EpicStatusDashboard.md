@@ -10,7 +10,7 @@ This document tracks the overall status of each Epic within the BookReview Platf
 | EPIC2 | User Authentication | Complete ✅ | August 21, 2025 | 21/21 | [Completion Report](./reports/Epic2_Completion_Report.md) |
 | EPIC3 | Book Management | Complete ✅ | August 27, 2025 | 24/24 | [Completion Report](./reports/Epic3_Completion_Report.md) |
 | EPIC4 | Review & Rating System | Complete ✅ | August 27, 2025 | 20/20 | [Completion Report](./reports/Epic4_Completion_Report.md) |
-| EPIC5 | Rating Aggregation | In Progress 🔄 | - | 0/8 | - |
+| EPIC5 | Rating Aggregation | Complete ✅ | August 27, 2025 | 8/8 | [Completion Report](./reports/Epic5_Completion_Report.md) |
 | EPIC6 | User Profile | Not Started ⏹ | - | 0/25 | - |
 | EPIC7 | Recommendation System | Not Started ⏹ | - | 0/21 | - |
 | EPIC8 | UI/UX and Responsive Design | In Progress 🔄 | - | 0/20 | - |
@@ -22,6 +22,20 @@ This document tracks the overall status of each Epic within the BookReview Platf
 | EPIC14 | Documentation | In Progress 🔄 | - | 0/13 | - |
 
 ## Recently Completed Epics
+
+### EPIC5: Rating Aggregation (Completed August 27, 2025)
+
+**Key Achievements:**
+- Implemented automated rating calculation algorithm
+- Created visual and numeric rating display components
+- Added rating distribution tracking
+- Developed top-rated books section for homepage
+- Ensured consistent rating display across the application
+
+**User Stories Completed:**
+- US_5.1: Average Rating Calculation
+
+**See full details in the [Epic5 Completion Report](./reports/Epic5_Completion_Report.md)**
 
 ### EPIC4: Review & Rating System (Completed August 27, 2025)
 

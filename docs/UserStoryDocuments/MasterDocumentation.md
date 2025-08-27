@@ -94,7 +94,9 @@ Some of the most critical user stories for this project include:
 
 4. **Create Review (US 4.1)**: Enables users to write reviews and rate books
 
-5. **AI-Powered Recommendations (US 7.2)**: Implements the recommendation system using OpenAI API
+5. **Average Rating Calculation (US 5.1)**: Automatically calculates and displays book ratings
+
+6. **AI-Powered Recommendations (US 7.2)**: Implements the recommendation system using OpenAI API
 
 ## Testing Approach
 

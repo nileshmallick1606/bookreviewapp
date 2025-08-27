@@ -1,0 +1,353 @@
+[
+  {
+    "id": "2451c8d4-cb6c-4196-b032-5b8aa19c8d2e",
+    "title": "Ancient Mystery Reborn",
+    "author": "Mark Twain",
+    "coverImage": "https://placeholder.pics/svg/300x400/ED4264/FFFFFF/Book%20Cover",
+    "averageRating": 5
+  },
+  {
+    "id": "4d4f09d1-8ca6-49a7-918f-26a3adc7e703",
+    "title": "Dream of Light",
+    "author": "Jane Austen",
+    "coverImage": "https://placeholder.pics/svg/300x400/ED4264/FFFFFF/Book%20Cover",
+    "averageRating": 4.9
+  },
+  {
+    "id": "a2be647b-3182-4b84-8830-fdd9f3d3e569",
+    "title": "Ancient Shadow",
+    "author": "Virginia Woolf",
+    "coverImage": "https://placeholder.pics/svg/300x400/4CAF50/FFFFFF/Book%20Cover",
+    "averageRating": 4.9
+  },
+  {
+    "id": "c202653c-b531-4ffa-8a26-f4f141580533",
+    "title": "Garden of Light",
+    "author": "F. Scott Fitzgerald",
+    "coverImage": "https://placeholder.pics/svg/300x400/9C27B0/FFFFFF/Book%20Cover",
+    "averageRating": 4.9
+  },
+  {
+    "id": "d2ddc1ae-4e90-4b5c-b061-9f6ae4d26a82",
+    "title": "Ancient Path of the Mind",
+    "author": "Philip K. Dick",
+    "coverImage": "https://placeholder.pics/svg/300x400/DEDEDE/555555/Book%20Cover",
+    "averageRating": 4.9
+  },
+  {
+    "id": "fe86f709-1d37-447b-a6d6-9dc1a1fc5f01",
+    "title": "Beyond Island Remembered",
+    "author": "Margaret Atwood",
+    "coverImage": "https://placeholder.pics/svg/300x400/5EA1D2/FFFFFF/Book%20Cover",
+    "averageRating": 4.9
+  },
+  {
+    "id": "fdefe707-676c-4835-9502-9db6e91e1efa",
+    "title": "Under Journey Forgotten",
+    "author": "Ernest Hemingway",
+    "coverImage": "https://placeholder.pics/svg/300x400/5EA1D2/FFFFFF/Book%20Cover",
+    "averageRating": 4.8
+  },
+  {
+    "id": "b39cf947-86f6-4896-afbe-3f94a256a7d7",
+    "title": "Under Love Discovered",
+    "author": "Leo Tolstoy",
+    "coverImage": "https://placeholder.pics/svg/300x400/ED4264/FFFFFF/Book%20Cover",
+    "averageRating": 4.7
+  },
+  {
+    "id": "56a87218-0e18-4e7b-afad-75c583598f1a",
+    "title": "Eternal Dream",
+    "author": "Isaac Asimov",
+    "coverImage": "https://placeholder.pics/svg/300x400/ED4264/FFFFFF/Book%20Cover",
+    "averageRating": 4.6
+  },
+  {
+    "id": "cc5336e2-74b5-46ea-9dc4-5bda33c3aede",
+    "title": "First Path",
+    "author": "J.R.R. Tolkien",
+    "coverImage": "https://placeholder.pics/svg/300x400/ED4264/FFFFFF/Book%20Cover",
+    "averageRating": 4.6
+  },
+  {
+    "id": "0bae6f2e-d8a8-4fce-bba7-c1fa924884d5",
+    "title": "Mystery and Love",
+    "author": "Ernest Hemingway",
+    "coverImage": "https://placeholder.pics/svg/300x400/DEDEDE/555555/Book%20Cover",
+    "averageRating": 4.5
+  },
+  {
+    "id": "28ee3fac-412a-4bfd-9dbc-70954b2f150b",
+    "title": "War and Tale",
+    "author": "Agatha Christie",
+    "coverImage": "https://placeholder.pics/svg/300x400/ED4264/FFFFFF/Book%20Cover",
+    "averageRating": 4.4
+  },
+  {
+    "id": "9d70d14e-ef45-40fa-92ab-0c5eca57e2e8",
+    "title": "The Shadow Revealed",
+    "author": "Neil Gaiman",
+    "coverImage": "https://placeholder.pics/svg/300x400/FFC107/333333/Book%20Cover",
+    "averageRating": 4.3
+  },
+  {
+    "id": "06262950-a211-4423-b69e-de7d778475f4",
+    "title": "Dark Peace of the Universe",
+    "author": "George Orwell",
+    "coverImage": "https://placeholder.pics/svg/300x400/4CAF50/FFFFFF/Book%20Cover",
+    "averageRating": 4.2
+  },
+  {
+    "id": "2ef3145a-227b-4a78-a935-27738490fa4f",
+    "title": "Under River of Destiny",
+    "author": "Leo Tolstoy",
+    "coverImage": "https://placeholder.pics/svg/300x400/9C27B0/FFFFFF/Book%20Cover",
+    "averageRating": 4.2
+  },
+  {
+    "id": "bc562570-a424-45b4-8af0-e39da8b5929b",
+    "title": "Modern Path Revealed",
+    "author": "Toni Morrison",
+    "coverImage": "https://placeholder.pics/svg/300x400/9C27B0/FFFFFF/Book%20Cover",
+    "averageRating": 4.1
+  },
+  {
+    "id": "5d2290ec-8342-420b-ab96-7ca8d09e930e",
+    "title": "A Legend",
+    "author": "Maya Angelou",
+    "coverImage": "https://placeholder.pics/svg/300x400/4CAF50/FFFFFF/Book%20Cover",
+    "averageRating": 4,
+    "totalReviews": 1
+  },
+  {
+    "id": "af32682d-c31d-43b3-834c-471720f1fc5e",
+    "title": "Myth of the Ages",
+    "author": "Agatha Christie",
+    "coverImage": "https://placeholder.pics/svg/300x400/5EA1D2/FFFFFF/Book%20Cover",
+    "averageRating": 4
+  },
+  {
+    "id": "d687338b-dca2-4113-83d8-bcef38bfcfd3",
+    "title": "Story and Adventure",
+    "author": "Maya Angelou",
+    "coverImage": "https://placeholder.pics/svg/300x400/4CAF50/FFFFFF/Book%20Cover",
+    "averageRating": 3.8
+  },
+  {
+    "id": "d9c0241a-5f23-4beb-8fcf-8e9dfef25c1d",
+    "title": "Hidden River",
+    "author": "Gabriel Garcia Marquez",
+    "coverImage": "https://placeholder.pics/svg/300x400/5EA1D2/FFFFFF/Book%20Cover",
+    "averageRating": 3.8
+  },
+  {
+    "id": "24da386c-6c46-42d4-bfb1-a2fa3040beda",
+    "title": "Star and Garden",
+    "author": "Toni Morrison",
+    "coverImage": "https://placeholder.pics/svg/300x400/4CAF50/FFFFFF/Book%20Cover",
+    "averageRating": 3.7
+  },
+  {
+    "id": "ae739cbf-5797-4a9e-a9ea-bd1c1f77f3c0",
+    "title": "Last Path of the Ages",
+    "author": "J.K. Rowling",
+    "coverImage": "https://placeholder.pics/svg/300x400/DEDEDE/555555/Book%20Cover",
+    "averageRating": 3.7
+  },
+  {
+    "id": "617fcbe9-0d9d-453f-aa21-e21d8b8b3f31",
+    "title": "Peace of Time",
+    "author": "Toni Morrison",
+    "coverImage": "https://placeholder.pics/svg/300x400/4CAF50/FFFFFF/Book%20Cover",
+    "averageRating": 3.6
+  },
+  {
+    "id": "9621d957-b6db-47d1-9478-984ad79e1f5f",
+    "title": "Future of Shadows",
+    "author": "Virginia Woolf",
+    "coverImage": "https://placeholder.pics/svg/300x400/5EA1D2/FFFFFF/Book%20Cover",
+    "averageRating": 3.6
+  },
+  {
+    "id": "4f8d3a50-0354-4043-b323-8588e6a87681",
+    "title": "Last Secret Untold",
+    "author": "Ernest Hemingway",
+    "coverImage": "https://placeholder.pics/svg/300x400/DEDEDE/555555/Book%20Cover",
+    "averageRating": 3.5
+  },
+  {
+    "id": "695cc628-3748-4eea-a43e-449169628763",
+    "title": "Ancient Love of Eternity",
+    "author": "George Orwell",
+    "coverImage": "https://placeholder.pics/svg/300x400/9C27B0/FFFFFF/Book%20Cover",
+    "averageRating": 3.5
+  },
+  {
+    "id": "c7720af5-9a2b-485d-995f-8d2baa84f0bc",
+    "title": "Island Reborn",
+    "author": "Leo Tolstoy",
+    "coverImage": "https://placeholder.pics/svg/300x400/DEDEDE/555555/Book%20Cover",
+    "averageRating": 3.5
+  },
+  {
+    "id": "0b2d11e8-1d65-45bd-bf0c-b5f438c01ab3",
+    "title": "Tale and Chronicle",
+    "author": "F. Scott Fitzgerald",
+    "coverImage": "https://placeholder.pics/svg/300x400/DEDEDE/555555/Book%20Cover",
+    "averageRating": 3.3
+  },
+  {
+    "id": "58a02493-fdef-4d4a-a719-22c7ff4b2f99",
+    "title": "Myth of Destiny",
+    "author": "George Orwell",
+    "coverImage": "https://placeholder.pics/svg/300x400/5EA1D2/FFFFFF/Book%20Cover",
+    "averageRating": 3.3
+  },
+  {
+    "id": "7a1d2acb-bad7-48a0-8404-a06be1f329a0",
+    "title": "Love of Eternity",
+    "author": "Fyodor Dostoevsky",
+    "coverImage": "https://placeholder.pics/svg/300x400/5EA1D2/FFFFFF/Book%20Cover",
+    "averageRating": 3.3
+  },
+  {
+    "id": "3967d9f7-5e20-4a7a-8ab7-6808df78f37e",
+    "title": "The Kingdom of Light",
+    "author": "Maya Angelou",
+    "coverImage": "https://placeholder.pics/svg/300x400/5EA1D2/FFFFFF/Book%20Cover",
+    "averageRating": 3.2
+  },
+  {
+    "id": "71fcd448-2404-4765-8d20-7cb7ebe20eff",
+    "title": "Tale and City",
+    "author": "Mark Twain",
+    "coverImage": "https://placeholder.pics/svg/300x400/FFC107/333333/Book%20Cover",
+    "averageRating": 3.2
+  },
+  {
+    "id": "b455f3aa-bfe8-4f9e-b4b3-a960486a187f",
+    "title": "The Mystery of Destiny",
+    "author": "Haruki Murakami",
+    "coverImage": "https://placeholder.pics/svg/300x400/ED4264/FFFFFF/Book%20Cover",
+    "averageRating": 3.2
+  },
+  {
+    "id": "65942bf6-c5bf-4ca3-a96b-ddfbdb8ebfda",
+    "title": "First Island of Time",
+    "author": "Leo Tolstoy",
+    "coverImage": "https://placeholder.pics/svg/300x400/ED4264/FFFFFF/Book%20Cover",
+    "averageRating": 3.1
+  },
+  {
+    "id": "f4ef5324-2d00-49a3-bef2-9df1d6e505d0",
+    "title": "Lost Adventure",
+    "author": "J.K. Rowling",
+    "coverImage": "https://placeholder.pics/svg/300x400/4CAF50/FFFFFF/Book%20Cover",
+    "averageRating": 3.1
+  },
+  {
+    "id": "0e83aa7a-b74c-4374-a2dc-f919b9aac3e6",
+    "title": "Peace and Mountain",
+    "author": "Jane Austen",
+    "coverImage": "https://placeholder.pics/svg/300x400/5EA1D2/FFFFFF/Book%20Cover",
+    "averageRating": 3
+  },
+  {
+    "id": "813a4356-d6b2-4dbe-b953-cbadd8b7de02",
+    "title": "Beyond Legend Revealed",
+    "author": "Ernest Hemingway",
+    "coverImage": "https://placeholder.pics/svg/300x400/9C27B0/FFFFFF/Book%20Cover",
+    "averageRating": 3
+  },
+  {
+    "id": "92d604bb-8f2b-4852-ae9c-2451cfac4a9a",
+    "title": "First Past Untold",
+    "author": "Fyodor Dostoevsky",
+    "coverImage": "https://placeholder.pics/svg/300x400/4CAF50/FFFFFF/Book%20Cover",
+    "averageRating": 3
+  },
+  {
+    "id": "8e4cc810-2924-4e9e-8586-bf57ed2d6928",
+    "title": "Chronicle of the Mind",
+    "author": "Haruki Murakami",
+    "coverImage": "https://placeholder.pics/svg/300x400/DEDEDE/555555/Book%20Cover",
+    "averageRating": 2.9
+  },
+  {
+    "id": "b9c96349-66a9-4655-b52d-0cd11fec76ef",
+    "title": "Story Untold",
+    "author": "Leo Tolstoy",
+    "coverImage": "https://placeholder.pics/svg/300x400/ED4264/FFFFFF/Book%20Cover",
+    "averageRating": 2.9
+  },
+  {
+    "id": "c7a853d7-e7a6-4242-99f1-7d6f60712f36",
+    "title": "Ancient Star Revealed",
+    "author": "Jane Austen",
+    "coverImage": "https://placeholder.pics/svg/300x400/DEDEDE/555555/Book%20Cover",
+    "averageRating": 2.9
+  },
+  {
+    "id": "480f779d-bbe8-48a8-9020-9f76f6253b50",
+    "title": "Under River",
+    "author": "Maya Angelou",
+    "coverImage": "https://placeholder.pics/svg/300x400/FFC107/333333/Book%20Cover",
+    "averageRating": 2.8
+  },
+  {
+    "id": "c1c9c945-30c1-4985-a14c-bb5c8b2b64d6",
+    "title": "Eternal Garden",
+    "author": "F. Scott Fitzgerald",
+    "coverImage": "https://placeholder.pics/svg/300x400/ED4264/FFFFFF/Book%20Cover",
+    "averageRating": 2.8
+  },
+  {
+    "id": "78c7e345-2e68-47ea-8db2-f4066548224c",
+    "title": "Adventure Discovered",
+    "author": "Leo Tolstoy",
+    "coverImage": "https://placeholder.pics/svg/300x400/4CAF50/FFFFFF/Book%20Cover",
+    "averageRating": 2.7
+  },
+  {
+    "id": "5488c9ed-63ed-4d08-9643-f49fb0eda6a8",
+    "title": "The Light",
+    "author": "George Orwell",
+    "coverImage": "https://placeholder.pics/svg/300x400/5EA1D2/FFFFFF/Book%20Cover",
+    "averageRating": 2.5
+  },
+  {
+    "id": "116c398a-37e8-4883-93e5-b14d1dcb82d9",
+    "title": "Ancient Secret",
+    "author": "Toni Morrison",
+    "coverImage": "https://placeholder.pics/svg/300x400/5EA1D2/FFFFFF/Book%20Cover",
+    "averageRating": 2.4
+  },
+  {
+    "id": "44117ab6-9d2a-4ee5-9336-ed326ecb63ac",
+    "title": "Legend of Shadows",
+    "author": "Stephen King",
+    "coverImage": "https://placeholder.pics/svg/300x400/ED4264/FFFFFF/Book%20Cover",
+    "averageRating": 2.4
+  },
+  {
+    "id": "b11086ce-a592-4b67-a6fc-f2f7da63157a",
+    "title": "Secret of the Mind",
+    "author": "Philip K. Dick",
+    "coverImage": "https://placeholder.pics/svg/300x400/9C27B0/FFFFFF/Book%20Cover",
+    "averageRating": 2.4
+  },
+  {
+    "id": "aad5b219-46ae-48be-b40c-9bec0a11ee85",
+    "title": "Beyond War",
+    "author": "Margaret Atwood",
+    "coverImage": "https://placeholder.pics/svg/300x400/9C27B0/FFFFFF/Book%20Cover",
+    "averageRating": 2.3
+  },
+  {
+    "id": "ac425587-ae95-4f3d-a9fd-0fe2e443dd0a",
+    "title": "Lost City",
+    "author": "J.R.R. Tolkien",
+    "coverImage": "https://placeholder.pics/svg/300x400/ED4264/FFFFFF/Book%20Cover",
+    "averageRating": 2.3
+  }
+]

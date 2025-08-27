@@ -108,6 +108,23 @@ export const BookService = {
       throw error;
     }
   },
+  
+  /**
+   * Get top-rated books
+   * @param limit Maximum number of books to return
+   * @returns Promise with top-rated books
+   */
+  async getTopRatedBooks(limit: number = 10): Promise<Book[]> {
+    try {
+      const response = await api.get(`/books/top-rated`, {
+        params: { limit }
+      });
+      return response.data.data.books;
+    } catch (error) {
+      console.error('Error getting top-rated books:', error);
+      throw error;
+    }
+  },
 
   /**
    * Create a new book

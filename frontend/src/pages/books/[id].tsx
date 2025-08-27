@@ -6,7 +6,6 @@ import {
   Grid, 
   Box, 
   Typography, 
-  Rating, 
   Chip, 
   Button,
   Paper,
@@ -25,6 +24,7 @@ import { BookService, Book } from '../../services/bookService';
 import ReviewForm from '../../components/reviews/ReviewForm';
 import ReviewList from '../../components/reviews/ReviewList';
 import { useAppSelector } from '../../hooks/reduxHooks';
+import RatingDisplay from '../../components/common/RatingDisplay';
 
 const BookDetailPage: React.FC = () => {
   const router = useRouter();
@@ -179,25 +179,13 @@ const BookDetailPage: React.FC = () => {
             </Typography>
             
             {/* Rating display */}
-            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-              {book.averageRating ? (
-                <>
-                  <Rating 
-                    value={book.averageRating} 
-                    precision={0.1} 
-                    readOnly 
-                  />
-                  <Typography variant="body1" ml={1} color="text.secondary">
-                    {book.averageRating.toFixed(1)}
-                    {book.totalReviews !== undefined && book.totalReviews > 0 && 
-                      ` • ${book.totalReviews} review${book.totalReviews > 1 ? 's' : ''}`}
-                  </Typography>
-                </>
-              ) : (
-                <Typography variant="body2" color="text.secondary">
-                  No ratings yet
-                </Typography>
-              )}
+            <Box sx={{ mb: 2 }}>
+              <RatingDisplay 
+                rating={book.averageRating} 
+                reviewCount={book.totalReviews} 
+                size="large"
+                showCount={true}
+              />
             </Box>
             
             {/* Genres */}

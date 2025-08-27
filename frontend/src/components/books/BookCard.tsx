@@ -4,11 +4,11 @@ import {
   CardContent, 
   CardMedia, 
   Typography, 
-  Rating,
   Box,
   Chip,
   CardActionArea
 } from '@mui/material';
+import RatingDisplay from '../common/RatingDisplay';
 import { useRouter } from 'next/router';
 import { Book } from '../../services/bookService';
 
@@ -63,26 +63,12 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
           </Typography>
           
           {/* Display rating if available */}
-          <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-            {book.averageRating ? (
-              <>
-                <Rating 
-                  value={book.averageRating} 
-                  precision={0.1} 
-                  readOnly 
-                  size="small"
-                />
-                <Typography variant="body2" color="text.secondary" ml={1}>
-                  ({book.averageRating.toFixed(1)})
-                  {book.totalReviews !== undefined && book.totalReviews > 0 && 
-                    ` • ${book.totalReviews} review${book.totalReviews > 1 ? 's' : ''}`}
-                </Typography>
-              </>
-            ) : (
-              <Typography variant="body2" color="text.secondary">
-                No ratings yet
-              </Typography>
-            )}
+          <Box sx={{ mb: 1 }}>
+            <RatingDisplay 
+              rating={book.averageRating} 
+              reviewCount={book.totalReviews} 
+              size="small" 
+            />
           </Box>
           
           {/* Display genres */}

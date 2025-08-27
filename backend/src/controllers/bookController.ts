@@ -1,11 +1,17 @@
 import { Request, Response } from 'express';
 import { BookModel } from '../models/book';
 import { prepareBookForResponse, prepareBookArrayForResponse } from '../utils/bookResponseUtils';
+import { getTopRatedBooks } from './rating.controller';
 
 /**
  * Controller for book-related endpoints
  */
 export class BookController {
+  /**
+   * Get top rated books
+   */
+  static getTopRatedBooks = getTopRatedBooks;
+  
   /**
    * Get a paginated list of books
    * @param req Express request object
