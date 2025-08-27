@@ -59,7 +59,19 @@ export const fetchCurrentUser = createAsyncThunk<
     const response = await getCurrentUser();
     return response.data.user;
   } catch (error) {
-    return rejectWithValue(error as ErrorResponse);
+    const typedError = error as ErrorResponse;
+    // Only report non-authentication errors (not 401)
+    if (typedError.error?.code !== 401) {
+      return rejectWithValue(typedError);
+    }
+    return rejectWithValue({
+      status: 'error',
+      data: null,
+      error: {
+        code: 401,
+        message: 'Not authenticated'
+      }
+    });
   }
 });
 

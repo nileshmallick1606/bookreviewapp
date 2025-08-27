@@ -63,20 +63,27 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
           </Typography>
           
           {/* Display rating if available */}
-          {book.averageRating !== undefined && (
-            <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-              <Rating 
-                value={book.averageRating} 
-                precision={0.1} 
-                readOnly 
-                size="small"
-              />
-              <Typography variant="body2" color="text.secondary" ml={1}>
-                ({book.averageRating.toFixed(1)})
-                {book.reviewCount !== undefined && ` • ${book.reviewCount} reviews`}
+          <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+            {book.averageRating ? (
+              <>
+                <Rating 
+                  value={book.averageRating} 
+                  precision={0.1} 
+                  readOnly 
+                  size="small"
+                />
+                <Typography variant="body2" color="text.secondary" ml={1}>
+                  ({book.averageRating.toFixed(1)})
+                  {book.totalReviews !== undefined && book.totalReviews > 0 && 
+                    ` • ${book.totalReviews} review${book.totalReviews > 1 ? 's' : ''}`}
+                </Typography>
+              </>
+            ) : (
+              <Typography variant="body2" color="text.secondary">
+                No ratings yet
               </Typography>
-            </Box>
-          )}
+            )}
+          </Box>
           
           {/* Display genres */}
           <Box sx={{ mt: 1 }}>

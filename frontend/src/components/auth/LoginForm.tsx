@@ -90,8 +90,11 @@ const LoginForm: React.FC = () => {
           rememberMe: formData.rememberMe
         })).unwrap();
         
-        // Redirect to home page after successful login
-        router.push('/');
+        // Check if there's a redirect URL in the query params
+        const redirect = router.query.redirect as string;
+        
+        // Redirect to the specified page or home page after successful login
+        router.push(redirect || '/');
       } catch (err) {
         // Error is already handled by the slice reducer
         console.error('Login failed:', err);

@@ -49,6 +49,18 @@ export class BookModel {
         const valueA = a[sortBy as keyof Book];
         const valueB = b[sortBy as keyof Book];
         
+        // Handle null values - null values are considered "less than" non-null values
+        if (valueA === null && valueB === null) {
+          return 0;
+        }
+        if (valueA === null) {
+          return sortOrder === 'asc' ? -1 : 1;
+        }
+        if (valueB === null) {
+          return sortOrder === 'asc' ? 1 : -1;
+        }
+        
+        // Handle string comparisons
         if (typeof valueA === 'string' && typeof valueB === 'string') {
           return sortOrder === 'asc' 
             ? valueA.localeCompare(valueB)

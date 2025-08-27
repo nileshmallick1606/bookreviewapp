@@ -19,10 +19,14 @@ export const withAuth = <P extends {}>(WrappedComponent: NextPage<P>) => {
     useEffect(() => {
       const checkAuth = async () => {
         try {
+          // Try to fetch current user data
           await dispatch(fetchCurrentUser()).unwrap();
         } catch (error) {
-          // Redirect to login if not authenticated
-          router.push(`/login?redirect=${encodeURIComponent(router.asPath)}`);
+          // Only redirect if we get a 401 error
+          const typedError = error as any;
+          if (typedError?.error?.code === 401) {
+            router.push(`/auth/login?redirect=${encodeURIComponent(router.asPath)}`);
+          }
         }
       };
       

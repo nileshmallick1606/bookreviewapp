@@ -11,6 +11,9 @@ Low
 ## Story Points
 5
 
+## Status
+Complete ✅ (August 27, 2025)
+
 ## Acceptance Criteria
 - Comment form below each review
 - Display of existing comments with user names

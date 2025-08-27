@@ -116,16 +116,30 @@ export const getCurrentUser = async (): Promise<AuthResponse> => {
     
     return response.data;
   } catch (error) {
-    if (axios.isAxiosError(error) && error.response) {
-      throw error.response.data as ErrorResponse;
+    if (axios.isAxiosError(error)) {
+      // For 401 errors, return a standardized response without logging to console
+      if (error.response?.status === 401) {
+        throw {
+          status: 'error',
+          data: null,
+          error: {
+            code: 401,
+            message: 'Not authenticated'
+          }
+        } as ErrorResponse;
+      } else if (error.response) {
+        // For other errors with response data
+        throw error.response.data as ErrorResponse;
+      }
     }
     
+    // For network errors or other unexpected issues
     throw {
       status: 'error',
       data: null,
       error: {
-        code: 401,
-        message: 'Not authenticated'
+        code: 500,
+        message: 'Failed to fetch current user data'
       }
     } as ErrorResponse;
   }

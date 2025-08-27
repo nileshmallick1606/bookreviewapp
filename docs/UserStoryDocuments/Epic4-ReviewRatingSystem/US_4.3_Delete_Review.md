@@ -11,6 +11,9 @@ Medium
 ## Story Points
 3
 
+## Status
+Complete ✅ (August 27, 2025)
+
 ## Acceptance Criteria
 - Delete button on user's own reviews
 - Confirmation dialog before deletion

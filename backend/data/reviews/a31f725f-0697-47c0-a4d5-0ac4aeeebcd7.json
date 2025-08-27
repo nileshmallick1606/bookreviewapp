@@ -1,0 +1,14 @@
+{
+  "id": "a31f725f-0697-47c0-a4d5-0ac4aeeebcd7",
+  "userId": "a3a89725-171d-4960-80a9-2457d4235150",
+  "bookId": "20cbe94e-581f-4b00-a5a5-795939f6cb94",
+  "rating": 5,
+  "text": "test3",
+  "imageUrls": [
+    "/uploads/images-1756277490077-176951763.JPG"
+  ],
+  "likes": [],
+  "comments": [],
+  "createdAt": "2025-08-27T06:51:30.100Z",
+  "updatedAt": "2025-08-27T06:51:30.100Z"
+}

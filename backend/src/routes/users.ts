@@ -1,7 +1,6 @@
 // src/routes/users.ts
 import { Router } from 'express';
-// Import controllers later when they're implemented
-// import { usersController } from '../controllers/usersController';
+import { getUserByIdController } from '../controllers/user.controller';
 
 const router = Router();
 
@@ -13,6 +12,9 @@ router.get('/', (req, res) => {
     error: null
   });
 });
+
+// Get user by ID
+router.get('/:id', getUserByIdController);
 
 // Export the router
 export { router as usersRouter };

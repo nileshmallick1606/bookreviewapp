@@ -4,8 +4,78 @@
 import { Request, Response } from 'express';
 import { execFile } from 'child_process';
 import path from 'path';
+import fs from 'fs';
 
 export class DataController {
+  /**
+   * Check data directories and permissions
+   * @param req Express request object
+   * @param res Express response object
+   */
+  static async checkDataDirectories(req: Request, res: Response): Promise<void> {
+    try {
+      const DIRS = [
+        path.join(process.cwd(), 'data'),
+        path.join(process.cwd(), 'data', 'books'),
+        path.join(process.cwd(), 'data', 'reviews'),
+        path.join(process.cwd(), 'data', 'indexes'),
+        path.join(process.cwd(), 'data', 'indexes', 'reviewsByBook'),
+        path.join(process.cwd(), 'data', 'indexes', 'reviewsByUser'),
+        path.join(process.cwd(), 'uploads')
+      ];
+      
+      const results = DIRS.map(dir => {
+        // Check if directory exists
+        const exists = fs.existsSync(dir);
+        
+        let writable = false;
+        let contents = [];
+        
+        // Check if directory is writable and get contents if it exists
+        if (exists) {
+          try {
+            const testFile = path.join(dir, '.test-write-permission');
+            fs.writeFileSync(testFile, 'test');
+            fs.unlinkSync(testFile);
+            writable = true;
+            
+            contents = fs.readdirSync(dir);
+          } catch (err) {
+            writable = false;
+          }
+        } else {
+          // Try to create the directory if it doesn't exist
+          try {
+            fs.mkdirSync(dir, { recursive: true });
+            writable = true;
+          } catch (err) {
+            console.error(`Failed to create directory: ${dir}`, err);
+          }
+        }
+        
+        return {
+          path: dir,
+          exists: fs.existsSync(dir),
+          writable,
+          contentsCount: exists ? contents.length : 0
+        };
+      });
+      
+      res.status(200).json({
+        status: 'success',
+        data: results,
+        error: null
+      });
+    } catch (error) {
+      console.error('Error checking data directories:', error);
+      res.status(500).json({
+        status: 'error',
+        error: { code: 500, message: 'Failed to check data directories' },
+        data: null
+      });
+    }
+  }
+  
   /**
    * Generate sample book data
    * @param req Express request object

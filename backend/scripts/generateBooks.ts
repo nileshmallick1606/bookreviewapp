@@ -175,7 +175,7 @@ function generateBook(): Book {
     createdAt: now,
     updatedAt: now,
     averageRating: Math.round(Math.random() * 5 * 10) / 10, // Random rating between 0 and 5, with 1 decimal point
-    reviewCount: getRandomInt(0, 100)
+    totalReviews: getRandomInt(0, 100)
   };
 }
 

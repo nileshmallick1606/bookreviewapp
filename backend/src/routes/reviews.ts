@@ -1,18 +1,30 @@
 // src/routes/reviews.ts
 import { Router } from 'express';
-// Import controllers later when they're implemented
-// import { reviewsController } from '../controllers/reviewsController';
+import {
+  createReview,
+  getReview,
+  getBookReviews,
+  getUserReviews,
+  updateReview,
+  deleteReview,
+  toggleLike,
+  addComment
+} from '../controllers/review.controller';
+import { authMiddleware } from '../middlewares/auth.middleware';
 
 const router = Router();
 
-// Define routes
-router.get('/', (req, res) => {
-  res.status(200).json({ 
-    status: 'success',
-    data: { message: 'Reviews API endpoint placeholder' },
-    error: null
-  });
-});
+// Book reviews endpoints - for backward compatibility
+router.get('/books/:bookId', getBookReviews);  // Handles /api/v1/reviews/books/:bookId
+
+// Review endpoints
+router.get('/:reviewId', getReview);
+router.put('/:reviewId', authMiddleware, updateReview);
+router.delete('/:reviewId', authMiddleware, deleteReview);
+
+// Like and comment endpoints
+router.post('/:reviewId/like', authMiddleware, toggleLike);
+router.post('/:reviewId/comment', authMiddleware, addComment);
 
 // Export the router
 export { router as reviewsRouter };

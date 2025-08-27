@@ -15,9 +15,8 @@ const Home: NextPage = () => {
   // Try to fetch current user on page load
   useEffect(() => {
     if (!isAuthenticated && !loading) {
-      dispatch(fetchCurrentUser()).catch(() => {
-        // Ignore errors - user may not be logged in
-      });
+      // Silent auth check - no need to handle errors as they're handled in the slice
+      dispatch(fetchCurrentUser());
     }
   }, [dispatch, isAuthenticated, loading]);
   

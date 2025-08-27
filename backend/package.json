@@ -10,10 +10,12 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint .",
-    "generate-books": "ts-node scripts/generateBooks.ts"
+    "generate-books": "ts-node scripts/generateBooks.ts",
+    "view-reviews": "ts-node scripts/viewReviews.ts"
   },
   "dependencies": {
     "@types/bcrypt": "^6.0.0",
+    "@types/multer": "^2.0.0",
     "@types/nodemailer": "^7.0.1",
     "bcrypt": "^6.0.0",
     "bcryptjs": "^2.4.3",
@@ -24,6 +26,7 @@
     "helmet": "^7.0.0",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
+    "multer": "^2.0.2",
     "nodemailer": "^7.0.5",
     "uuid": "^9.0.1"
   },

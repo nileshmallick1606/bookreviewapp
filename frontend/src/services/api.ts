@@ -9,12 +9,16 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  // Ensure cookies are sent cross-origin if needed
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
 });
 
 // Add a request interceptor
 api.interceptors.request.use(
   (config) => {
-    // You can add authentication headers here if needed
+    // The withCredentials option is already set to true globally,
+    // which ensures cookies are sent with every request
     return config;
   },
   (error) => {
@@ -30,7 +34,10 @@ api.interceptors.response.use(
   },
   (error) => {
     // Any status codes outside the range of 2xx
-    if (error.response?.status === 401) {
+    if (error.code === 'ERR_NETWORK' || error.code === 'ECONNREFUSED') {
+      console.error('Network error - backend server may be down or unreachable:', error);
+      error.message = 'Cannot connect to the server';
+    } else if (error.response?.status === 401) {
       // Handle unauthorized access (e.g., redirect to login)
       console.error('Unauthorized access');
     }

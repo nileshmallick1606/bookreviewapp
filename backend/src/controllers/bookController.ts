@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { BookModel } from '../models/book';
+import { prepareBookForResponse, prepareBookArrayForResponse } from '../utils/bookResponseUtils';
 
 /**
  * Controller for book-related endpoints
@@ -26,10 +27,16 @@ export class BookController {
       }
 
       const bookData = await BookModel.getBooks(page, limit, sortBy, sortOrder);
+      
+      // Clean the book data to remove reviewCount property
+      const cleanBookData = {
+        ...bookData,
+        books: prepareBookArrayForResponse(bookData.books)
+      };
 
       return res.status(200).json({
         status: 'success',
-        data: bookData,
+        data: cleanBookData,
         error: null
       });
     } catch (error) {
@@ -67,9 +74,12 @@ export class BookController {
         });
       }
 
+      // Clean the book data to remove reviewCount property
+      const cleanBook = prepareBookForResponse(book);
+      
       return res.status(200).json({
         status: 'success',
-        data: book,
+        data: cleanBook,
         error: null
       });
     } catch (error) {
@@ -101,9 +111,12 @@ export class BookController {
 
       const books = await BookModel.searchBooks(query, limit);
 
+      // Clean the book data to remove reviewCount property
+      const cleanBooks = prepareBookArrayForResponse(books);
+      
       return res.status(200).json({
         status: 'success',
-        data: books,
+        data: cleanBooks,
         error: null
       });
     } catch (error) {
@@ -178,9 +191,12 @@ export class BookController {
         publishedYear: publishedYear || new Date().getFullYear(),
       });
 
+      // Clean the book data to remove reviewCount property
+      const cleanBook = prepareBookForResponse(newBook);
+      
       return res.status(201).json({
         status: 'success',
-        data: newBook,
+        data: cleanBook,
         error: null
       });
     } catch (error) {
@@ -227,9 +243,12 @@ export class BookController {
         });
       }
 
+      // Clean the book data to remove reviewCount property
+      const cleanBook = prepareBookForResponse(updatedBook);
+      
       return res.status(200).json({
         status: 'success',
-        data: updatedBook,
+        data: cleanBook,
         error: null
       });
     } catch (error) {

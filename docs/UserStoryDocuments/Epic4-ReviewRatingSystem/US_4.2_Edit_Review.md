@@ -11,6 +11,9 @@ Medium
 ## Story Points
 4
 
+## Status
+Complete ✅ (August 27, 2025)
+
 ## Acceptance Criteria
 - Edit button on user's own reviews
 - Pre-populated form with existing review content

@@ -5,7 +5,10 @@ import { authenticate } from '../middlewares/auth';
 
 const router = Router();
 
-// All routes are protected by authentication
+// Health check route (not protected)
+router.get('/health', DataController.checkDataDirectories);
+
+// All other routes are protected by authentication
 router.use(authenticate);
 
 // Data generation routes

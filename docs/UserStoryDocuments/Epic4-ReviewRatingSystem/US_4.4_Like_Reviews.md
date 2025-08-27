@@ -9,7 +9,10 @@
 Low
 
 ## Story Points
-3
+2
+
+## Status
+Complete ✅ (August 27, 2025)
 
 ## Acceptance Criteria
 - Like button on each review

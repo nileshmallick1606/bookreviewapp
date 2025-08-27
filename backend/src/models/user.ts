@@ -18,6 +18,7 @@ export interface User {
   email: string;
   password?: string; // This will store the hashed password, optional for social login
   name: string;
+  profilePicture?: string; // URL to user's profile picture
   socialProviders?: SocialProvider[];
   createdAt: string;
   updatedAt: string;

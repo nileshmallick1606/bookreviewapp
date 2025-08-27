@@ -3,14 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import { verifyToken } from '../utils/jwt';
 import { isTokenBlacklisted } from '../utils/tokenBlacklist';
 
-// Extended Request interface to include user property
-declare global {
-  namespace Express {
-    interface Request {
-      user?: any;
-    }
-  }
-}
+// Note: Express Request interface extension is already defined in auth.middleware.ts
 
 /**
  * Interface for JWT payload

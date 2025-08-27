@@ -1,6 +1,4 @@
-import axios from 'axios';
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api/v1';
+import api from './api';
 
 /**
  * Interface for book data
@@ -15,8 +13,8 @@ export interface Book {
   publishedYear: number;
   createdAt: string;
   updatedAt: string;
-  averageRating?: number;
-  reviewCount?: number;
+  averageRating?: number | null;
+  totalReviews?: number; // The count of reviews for this book
 }
 
 /**
@@ -49,7 +47,7 @@ export const BookService = {
     sortOrder: string = 'asc'
   ): Promise<PaginatedBooks> {
     try {
-      const response = await axios.get(`${API_URL}/books`, {
+      const response = await api.get('/books', {
         params: { page, limit, sortBy, sortOrder }
       });
       
@@ -67,7 +65,7 @@ export const BookService = {
    */
   async getBookById(id: string): Promise<Book> {
     try {
-      const response = await axios.get(`${API_URL}/books/${id}`);
+      const response = await api.get(`/books/${id}`);
       return response.data.data;
     } catch (error) {
       console.error(`Error fetching book with ID ${id}:`, error);
@@ -83,7 +81,7 @@ export const BookService = {
    */
   async searchBooks(query: string, limit: number = 10): Promise<Book[]> {
     try {
-      const response = await axios.get(`${API_URL}/books/search`, {
+      const response = await api.get(`/books/search`, {
         params: { q: query, limit }
       });
       return response.data.data;
@@ -101,7 +99,7 @@ export const BookService = {
    */
   async getSuggestions(query: string, limit: number = 5): Promise<string[]> {
     try {
-      const response = await axios.get(`${API_URL}/books/suggestions`, {
+      const response = await api.get(`/books/suggestions`, {
         params: { q: query, limit }
       });
       return response.data.data;
@@ -118,7 +116,7 @@ export const BookService = {
    */
   async createBook(bookData: Partial<Book>): Promise<Book> {
     try {
-      const response = await axios.post(`${API_URL}/books`, bookData);
+      const response = await api.post(`/books`, bookData);
       return response.data.data;
     } catch (error) {
       console.error('Error creating book:', error);
@@ -134,7 +132,7 @@ export const BookService = {
    */
   async updateBook(id: string, bookData: Partial<Book>): Promise<Book> {
     try {
-      const response = await axios.put(`${API_URL}/books/${id}`, bookData);
+      const response = await api.put(`/books/${id}`, bookData);
       return response.data.data;
     } catch (error) {
       console.error(`Error updating book with ID ${id}:`, error);
@@ -149,7 +147,7 @@ export const BookService = {
    */
   async deleteBook(id: string): Promise<void> {
     try {
-      await axios.delete(`${API_URL}/books/${id}`);
+      await api.delete(`/books/${id}`);
     } catch (error) {
       console.error(`Error deleting book with ID ${id}:`, error);
       throw error;
