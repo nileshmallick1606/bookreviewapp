@@ -1,5 +1,8 @@
 # User Story: View Other Users' Profiles (US 6.5)
 
+## Status
+✅ COMPLETED (August 28, 2025)
+
 ## Description
 **As a** user,  
 **I want to** view other users' profiles,  

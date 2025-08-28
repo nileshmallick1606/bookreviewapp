@@ -3,12 +3,12 @@ import {
   createNewReview, 
   getReviewById,
   getReviewsByBook,
-  getReviewsByUser,
   updateReviewById,
   deleteReviewById,
   toggleReviewLike,
   addCommentToReview
 } from '../services/review/review.service';
+import { getReviewsByUser } from '../services/review/user-reviews.service';
 import { calculateAverageRating } from '../services/book/book.service';
 import { ValidationError, NotFoundError, AuthorizationError, FileSystemError } from '../utils/errors';
 
@@ -171,11 +171,33 @@ export const getBookReviews = async (req: Request, res: Response): Promise<void>
 export const getUserReviews = async (req: Request, res: Response): Promise<void> => {
   try {
     const { userId } = req.params;
-    const reviews = await getReviewsByUser(userId);
+    
+    // Parse query parameters
+    const sortBy = req.query.sortBy === 'rating' ? 'rating' : 'date';
+    const sortOrder = req.query.sortOrder === 'asc' ? 'asc' : 'desc';
+    const limit = parseInt(req.query.limit as string) || 10;
+    const page = parseInt(req.query.page as string) || 1;
+    const offset = (page - 1) * limit;
+    
+    // Get reviews with pagination and sorting
+    const { reviews, total } = await getReviewsByUser(userId, {
+      sortBy: sortBy as 'date' | 'rating',
+      sortOrder: sortOrder as 'asc' | 'desc',
+      limit,
+      offset
+    });
     
     res.status(200).json({
       status: 'success',
-      data: reviews,
+      data: {
+        reviews,
+        pagination: {
+          total,
+          page,
+          limit,
+          totalPages: Math.ceil(total / limit)
+        }
+      },
       error: null
     });
   } catch (error) {

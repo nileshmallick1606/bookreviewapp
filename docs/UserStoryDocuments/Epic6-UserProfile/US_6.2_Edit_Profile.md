@@ -1,5 +1,8 @@
 # User Story: Edit Profile (US 6.2)
 
+## Status
+✅ COMPLETED (August 26, 2025)
+
 ## Description
 **As a** user,  
 **I want to** edit my profile information,  

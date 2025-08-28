@@ -49,6 +49,76 @@ export const getReview = async (reviewId: string): Promise<Review> => {
   return response.data.data;
 };
 
+// Book details included with review
+export interface BookSummary {
+  id: string;
+  title: string;
+  author: string;
+  coverImage?: string;
+}
+
+// Review with book details
+export interface ReviewWithBook extends Review {
+  book: BookSummary;
+}
+
+// Pagination response
+export interface PaginatedResponse<T> {
+  items: T[];
+  pagination: {
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+  };
+}
+
+/**
+ * Get reviews by a specific user
+ * @param userId - ID of the user
+ * @param page - Page number for pagination
+ * @param limit - Number of reviews per page
+ * @param sortBy - Field to sort by ('date' or 'rating')
+ * @param sortOrder - Sort order ('asc' or 'desc')
+ * @returns Paginated response with reviews
+ */
+export const getUserReviews = async (
+  userId: string,
+  page: number = 1,
+  limit: number = 10,
+  sortBy: 'date' | 'rating' = 'date',
+  sortOrder: 'desc' | 'asc' = 'desc'
+): Promise<PaginatedResponse<ReviewWithBook>> => {
+  try {
+    const response = await api.get(`/reviews/users/${userId}`, {
+      params: {
+        page,
+        limit,
+        sortBy,
+        sortOrder
+      }
+    });
+    
+    const { reviews, pagination } = response.data.data;
+    
+    return {
+      items: reviews,
+      pagination
+    };
+  } catch (error) {
+    console.error('Error fetching user reviews:', error);
+    return {
+      items: [],
+      pagination: {
+        total: 0,
+        page,
+        limit,
+        totalPages: 0
+      }
+    };
+  }
+};
+
 /**
  * Get all reviews for a book
  * @param bookId - ID of the book

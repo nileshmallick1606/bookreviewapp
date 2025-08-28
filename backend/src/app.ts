@@ -47,12 +47,16 @@ const PORT = process.env.PORT || 3001;
 app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
   
-  // Update the top-rated books index when the server starts
-  try {
-    await updateTopRatedBooksIndex();
-    console.log('Top-rated books index updated successfully');
-  } catch (error) {
-    console.error('Failed to update top-rated books index:', error);
+  // Update the top-rated books index when the server starts, but not in development mode with nodemon
+  if (process.env.NODE_ENV !== 'development' || process.env.FORCE_UPDATE_INDEX === 'true') {
+    try {
+      await updateTopRatedBooksIndex();
+      console.log('Top-rated books index updated successfully');
+    } catch (error) {
+      console.error('Failed to update top-rated books index:', error);
+    }
+  } else {
+    console.log('Skipping top-rated books index update in development mode');
   }
 });
 

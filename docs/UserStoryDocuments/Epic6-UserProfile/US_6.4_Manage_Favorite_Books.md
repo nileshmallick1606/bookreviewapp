@@ -1,5 +1,8 @@
 # User Story: Manage Favorite Books (US 6.4)
 
+## Status
+✅ COMPLETED (August 27, 2025)
+
 ## Description
 **As a** user,  
 **I want to** mark and unmark books as favorites,  

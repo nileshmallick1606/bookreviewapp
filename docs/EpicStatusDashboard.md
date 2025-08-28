@@ -11,7 +11,7 @@ This document tracks the overall status of each Epic within the BookReview Platf
 | EPIC3 | Book Management | Complete ✅ | August 27, 2025 | 24/24 | [Completion Report](./reports/Epic3_Completion_Report.md) |
 | EPIC4 | Review & Rating System | Complete ✅ | August 27, 2025 | 20/20 | [Completion Report](./reports/Epic4_Completion_Report.md) |
 | EPIC5 | Rating Aggregation | Complete ✅ | August 27, 2025 | 8/8 | [Completion Report](./reports/Epic5_Completion_Report.md) |
-| EPIC6 | User Profile | Not Started ⏹ | - | 0/25 | - |
+| EPIC6 | User Profile | Complete ✅ | August 28, 2025 | 25/25 | [Completion Report](./reports/Epic6_Completion_Report.md) |
 | EPIC7 | Recommendation System | Not Started ⏹ | - | 0/21 | - |
 | EPIC8 | UI/UX and Responsive Design | In Progress 🔄 | - | 0/20 | - |
 | EPIC9 | Data Management | In Progress 🔄 | - | 0/22 | - |
@@ -22,6 +22,24 @@ This document tracks the overall status of each Epic within the BookReview Platf
 | EPIC14 | Documentation | In Progress 🔄 | - | 0/13 | - |
 
 ## Recently Completed Epics
+
+### EPIC6: User Profile (Completed August 28, 2025)
+
+**Key Achievements:**
+- Implemented profile viewing and editing functionality
+- Created user reviews management interface
+- Developed favorites system for bookmarking books
+- Added public profile viewing with privacy controls
+- Integrated user statistics across the platform
+
+**User Stories Completed:**
+- US_6.1: View Profile
+- US_6.2: Edit Profile
+- US_6.3: View User Reviews
+- US_6.4: Manage Favorite Books
+- US_6.5: View Other Users' Profiles
+
+**See full details in the [Epic6 Completion Report](./reports/Epic6_Completion_Report.md)**
 
 ### EPIC5: Rating Aggregation (Completed August 27, 2025)
 

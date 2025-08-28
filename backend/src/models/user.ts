@@ -19,6 +19,7 @@ export interface User {
   password?: string; // This will store the hashed password, optional for social login
   name: string;
   profilePicture?: string; // URL to user's profile picture
+  genrePreferences?: string[]; // User's preferred book genres
   socialProviders?: SocialProvider[];
   createdAt: string;
   updatedAt: string;
@@ -31,6 +32,7 @@ export interface UserInput {
   email: string;
   password?: string; // Optional for social login
   name: string;
+  genrePreferences?: string[]; // Added genre preferences
   socialProvider?: SocialProvider;
 }
 
@@ -60,6 +62,11 @@ export const createUser = (data: UserInput): User => {
     user.socialProviders = [data.socialProvider];
   }
   
+  // Add genre preferences if provided
+  if (data.genrePreferences) {
+    user.genrePreferences = data.genrePreferences;
+  }
+  
   return user;
 };
 
@@ -70,6 +77,8 @@ export interface UserResponse {
   id: string;
   email: string;
   name: string;
+  profilePicture?: string;
+  genrePreferences?: string[];
   createdAt: string;
   updatedAt: string;
 }

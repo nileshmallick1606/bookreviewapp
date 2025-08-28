@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/app.js",
-    "dev": "nodemon --exec ts-node src/app.ts",
+    "dev": "nodemon --exec ts-node src/app.ts --ignore data/",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint .",

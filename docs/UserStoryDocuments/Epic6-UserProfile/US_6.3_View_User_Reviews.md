@@ -1,5 +1,8 @@
 # User Story: View User Reviews (US 6.3)
 
+## Status
+✅ COMPLETED (August 27, 2025)
+
 ## Description
 **As a** user,  
 **I want to** see all reviews I've written,  

@@ -1,6 +1,7 @@
 // src/routes/users.ts
 import { Router } from 'express';
-import { getUserByIdController } from '../controllers/user.controller';
+import { getUserByIdController, getProfileController, updateProfileController } from '../controllers/user.controller';
+import { authMiddleware } from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -13,8 +14,14 @@ router.get('/', (req, res) => {
   });
 });
 
-// Get user by ID
+// Get user by ID (public info)
 router.get('/:id', getUserByIdController);
+
+// Get user profile with statistics (requires auth to get full profile)
+router.get('/:id/profile', authMiddleware, getProfileController);
+
+// Update user profile (requires auth)
+router.put('/:id/profile', authMiddleware, updateProfileController);
 
 // Export the router
 export { router as usersRouter };

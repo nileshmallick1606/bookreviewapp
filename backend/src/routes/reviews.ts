@@ -17,6 +17,9 @@ const router = Router();
 // Book reviews endpoints - for backward compatibility
 router.get('/books/:bookId', getBookReviews);  // Handles /api/v1/reviews/books/:bookId
 
+// User reviews endpoints
+router.get('/users/:userId', getUserReviews);  // Handles /api/v1/reviews/users/:userId
+
 // Review endpoints
 router.get('/:reviewId', getReview);
 router.put('/:reviewId', authMiddleware, updateReview);

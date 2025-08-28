@@ -1,0 +1,14 @@
+{
+  "watch": [
+    "src/**/*"
+  ],
+  "ignore": [
+    "data/**/*",
+    "dist/**/*",
+    "node_modules/**/*",
+    "coverage/**/*",
+    "uploads/**/*"
+  ],
+  "ext": "ts,js,json",
+  "exec": "ts-node src/app.ts"
+}

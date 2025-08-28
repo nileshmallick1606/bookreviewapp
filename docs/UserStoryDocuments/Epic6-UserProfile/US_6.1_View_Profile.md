@@ -1,5 +1,8 @@
 # User Story: View Profile (US 6.1)
 
+## Status
+✅ COMPLETED (August 26, 2025)
+
 ## Description
 **As a** user,  
 **I want to** view my profile information,  
