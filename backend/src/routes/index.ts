@@ -6,6 +6,7 @@ import { reviewsRouter } from './reviews';
 import { authRouter } from './auth';
 import { dataRouter } from './data';
 import { favoritesRouter } from './favorites';
+import { recommendationsRouter } from './recommendations';
 
 const router = Router();
 
@@ -16,5 +17,6 @@ router.use('/users', usersRouter);
 router.use('/reviews', reviewsRouter);
 router.use('/data', dataRouter);
 router.use('/favorites', favoritesRouter);
+router.use('/recommendations', recommendationsRouter);
 
 export { router as apiRouter };

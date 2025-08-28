@@ -3,11 +3,10 @@ import type { NextPage } from 'next';
 import { useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { Button, Box, Divider } from '@mui/material';
+import { Button, Box } from '@mui/material';
 import styles from '@/styles/Home.module.css';
 import { useAppSelector, useAppDispatch } from '../hooks/reduxHooks';
 import { fetchCurrentUser } from '../store/slices/authSlice';
-import TopRatedBooks from '../components/home/TopRatedBooks';
 
 const Home: NextPage = () => {
   const dispatch = useAppDispatch();
@@ -36,13 +35,13 @@ const Home: NextPage = () => {
         </h1>
 
         <p className={styles.description}>
-          Discover, review, and share your favorite books
+          Discover, review, and share your favorite books. Check out our personalized recommendations and top-rated selections.
         </p>
 
         <div className={styles.grid}>
           <div className={styles.card}>
             <h2>Getting Started</h2>
-            <p>The BookReview platform is currently under development.</p>
+            <p>Visit our Books page to browse personalized recommendations and top-rated titles from our collection.</p>
             <Box sx={{ mt: 3, display: 'flex', gap: 2, justifyContent: 'center' }}>
               {!isAuthenticated ? (
                 <>
@@ -75,14 +74,17 @@ const Home: NextPage = () => {
                   </Link>
                 </>
               )}
+              <Link href="/books" passHref>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                >
+                  Browse Books
+                </Button>
+              </Link>
             </Box>
           </div>
         </div>
-        
-        <Divider sx={{ my: 4 }} />
-        
-        {/* Top-rated books section */}
-        <TopRatedBooks />
       </main>
 
       <footer className={styles.footer}>
