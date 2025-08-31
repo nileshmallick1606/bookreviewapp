@@ -1,0 +1,15 @@
+{
+  "name": "bookreview-backend-documentation",
+  "version": "1.0.0",
+  "description": "Documentation scripts for BookReview backend",
+  "main": "index.js",
+  "scripts": {
+    "docs": "jsdoc -c ../jsdoc.json",
+    "docs:dev": "nodemon --watch src -e js,ts --exec \"npm run docs\""
+  },
+  "devDependencies": {
+    "better-docs": "^2.7.2",
+    "jsdoc": "^4.0.2",
+    "nodemon": "^3.0.1"
+  }
+}

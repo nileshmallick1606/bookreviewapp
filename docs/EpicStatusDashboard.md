@@ -19,7 +19,7 @@ This document tracks the overall status of each Epic within the BookReview Platf
 | EPIC11 | Testing & QA | In Progress 🔄 | - | 0/25 | - |
 | EPIC12 | Deployment & DevOps | Not Started ⏹ | - | 0/19 | - |
 | EPIC13 | Security Implementation | Not Started ⏹ | - | 0/14 | - |
-| EPIC14 | Documentation | In Progress 🔄 | - | 0/13 | - |
+| EPIC14 | Documentation | Near Completion ⏳ | August 31, 2025 | 15/16 | [Progress Report](./reports/Epic14_Progress_Report.md) |
 
 ## Recently Completed Epics
 
@@ -147,27 +147,39 @@ This document tracks the overall status of each Epic within the BookReview Platf
 
 ## In-Progress Epics
 
-### EPIC5: Rating Aggregation (In Progress)
+### EPIC14: Documentation (Near Completion)
+
+**Key Achievements:**
+- Established documentation standards with comprehensive style guides
+- Created JSDoc configuration for automated code documentation
+- Implemented comprehensive API and backend service documentation
+- Developed detailed developer guides and onboarding materials
+- Created user guides with visual walkthroughs and troubleshooting
+- Completed system architecture documentation with detailed diagrams
 
 **Current Focus:**
-- Implementing average rating calculation
-- Creating rating distribution visualization
-- Developing real-time rating updates
+- Creating video tutorials for key user journeys
+- Developing training materials for knowledge transfer
+- Final review and cross-linking of documentation
 
 **Next Steps:**
-- Complete US_5.1: Average Rating Calculation
-- Begin testing of rating calculations
+- Complete US_14.2: User Documentation (video tutorials)
+- Complete US_14.3: Knowledge Transfer & Training (training materials)
 
-### EPIC8: UI/UX and Responsive Design (In Progress)
+**See progress details in the [Epic14 Progress Report](./reports/Epic14_Progress_Report.md)**
+
+### EPIC10: API Development (Near Completion)
 
 **Current Focus:**
-- Implementing responsive layouts
-- Integrating Material UI components
-- Enhancing mobile user experience
+- Finalizing advanced query capabilities
+- Completing GraphQL implementation
+- Testing API rate limiting and security measures
 
 **Next Steps:**
-- Complete US_8.1: Responsive Layout
-- Continue work on US_8.2: Material UI Implementation
+- Complete US_10.3: Advanced API Features
+- Final testing of API endpoints
+
+**See progress details in the [Epic10 Progress Report](./UserStoryDocuments/Epic10-APIDevelopment/Completion_Report.md)**
 
 ## Upcoming Epics
 
@@ -188,8 +200,8 @@ The next epics scheduled to begin work are:
 ## Overall Project Progress
 
 - **Total Story Points:** 245
-- **Completed Story Points:** 79 (32%)
-- **Remaining Story Points:** 166 (68%)
+- **Completed Story Points:** 84 (34%)
+- **Remaining Story Points:** 161 (66%)
 - **Current Velocity:** 20-25 points per sprint
 - **Estimated Remaining Sprints:** 7-9
 
