@@ -82,7 +82,6 @@ export class StorageServiceProvider {
       
       // Initialize index manager
       await this.indexManager.initIndexes();
-      
       console.log('Storage services initialized successfully.');
     } catch (error) {
       console.error('Failed to initialize storage services:', error);
