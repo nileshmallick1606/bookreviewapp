@@ -34,13 +34,14 @@ export class OpenAIService {
   private apiUrl: string = 'https://api.openai.com/v1/chat/completions';
   private model: string = 'gpt-4o-mini';
   private maxTokens: number = 2000;
+  private OPENAI_API_KEY='';
   
   /**
    * Create an instance of OpenAIService
    */
   constructor() {
-    this.apiKey = process.env.OPENAI_API_KEY || '';
-    
+    this.apiKey = process.env.OPENAI_API_KEY || this.OPENAI_API_KEY;
+
     if (!this.apiKey) {
       console.warn('OpenAI API key is not configured. AI-powered recommendations will not be available.');
     }
