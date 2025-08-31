@@ -28,8 +28,9 @@ app.use(express.urlencoded({ extended: true })); // Parse URL-encoded request bo
 // Serve static uploads
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
-// Import the function to update top-rated books index
+// Import services
 import { updateTopRatedBooksIndex } from './services/book/book.service';
+import { StorageServiceProvider } from './services/storageServiceProvider';
 
 // API routes
 app.use('/api/v1', apiRouter);
@@ -46,6 +47,15 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
+  
+  // Initialize storage services
+  try {
+    const storageProvider = StorageServiceProvider.getInstance();
+    await storageProvider.initialize();
+    console.log('Storage services initialized successfully');
+  } catch (error) {
+    console.error('Failed to initialize storage services:', error);
+  }
   
   // Update the top-rated books index when the server starts, but not in development mode with nodemon
   if (process.env.NODE_ENV !== 'development' || process.env.FORCE_UPDATE_INDEX === 'true') {

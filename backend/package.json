@@ -12,7 +12,11 @@
     "lint": "eslint .",
     "generate-books": "ts-node scripts/generateBooks.ts",
     "view-reviews": "ts-node scripts/viewReviews.ts",
-    "test:openai": "ts-node scripts/testOpenAIRecommendations.ts"
+    "test:openai": "ts-node scripts/testOpenAIRecommendations.ts",
+    "test:storage": "ts-node scripts/testStorageServices.ts",
+    "test:book-service": "ts-node scripts/testEnhancedBookService.ts",
+    "test:integration": "ts-node scripts/integrationTest.ts",
+    "migrate:storage": "ts-node scripts/migrateToNewStorage.ts"
   },
   "dependencies": {
     "@types/bcrypt": "^6.0.0",
