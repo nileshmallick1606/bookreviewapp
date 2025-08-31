@@ -388,3 +388,81 @@ const removeFromUserReviewIndex = async (userId: string, reviewId: string): Prom
     throw new FileSystemError('Failed to update user review index');
   }
 };
+
+// Get all reviews with pagination
+export const getAllReviewsWithPagination = async (
+  page: number = 1, 
+  limit: number = 10, 
+  sortBy: string = 'createdAt', 
+  sortOrder: string = 'desc'
+): Promise<{ 
+  reviews: Review[], 
+  total: number, 
+  page: number, 
+  limit: number, 
+  totalPages: number 
+}> => {
+  await ensureDirectoriesExist();
+  
+  try {
+    // Read all review files
+    const files = await readdir(REVIEWS_DIR);
+    const reviewFiles = files.filter(file => file.endsWith('.json'));
+    
+    // Read all reviews
+    const reviewPromises = reviewFiles.map(async (file) => {
+      const filePath = path.join(REVIEWS_DIR, file);
+      const fileData = await readFile(filePath, 'utf-8');
+      return JSON.parse(fileData) as Review;
+    });
+    
+    let reviews = await Promise.all(reviewPromises);
+    
+    // Sort reviews
+    reviews.sort((a, b) => {
+      const aValue = a[sortBy as keyof Review];
+      const bValue = b[sortBy as keyof Review];
+      
+      // Handle dates (most common sort)
+      if (sortBy === 'createdAt' || sortBy === 'updatedAt') {
+        const aDate = new Date(a[sortBy]).getTime();
+        const bDate = new Date(b[sortBy]).getTime();
+        return sortOrder === 'asc' ? aDate - bDate : bDate - aDate;
+      }
+      
+      // Handle ratings
+      if (sortBy === 'rating') {
+        return sortOrder === 'asc' 
+          ? (a.rating - b.rating) 
+          : (b.rating - a.rating);
+      }
+      
+      // Default string comparison
+      if (typeof aValue === 'string' && typeof bValue === 'string') {
+        return sortOrder === 'asc' 
+          ? aValue.localeCompare(bValue)
+          : bValue.localeCompare(aValue);
+      }
+      
+      return 0;
+    });
+    
+    // Calculate pagination
+    const total = reviews.length;
+    const totalPages = Math.ceil(total / limit);
+    const startIndex = (page - 1) * limit;
+    const endIndex = startIndex + limit;
+    const paginatedReviews = reviews.slice(startIndex, endIndex);
+    
+    return {
+      reviews: paginatedReviews,
+      total,
+      page,
+      limit,
+      totalPages
+    };
+  } catch (error) {
+    console.error('Error getting all reviews:', error);
+    throw new FileSystemError('Failed to get reviews');
+  }
+};

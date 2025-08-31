@@ -21,8 +21,10 @@ import SearchBar from '../../components/common/SearchBar';
 import { useRouter } from 'next/router';
 import TabNavigation from '../../components/common/TabNavigation';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import { getAllReviews, Review as ReviewType } from '../../services/reviewService';
+import { BookService } from '../../services/bookService';
 
-// Mock data for reviews
+// Fallback mock data for reviews (used when API fails)
 const MOCK_REVIEWS = [
   {
     id: '1',
@@ -126,36 +128,72 @@ const ReviewsPage = () => {
   // Handle tab change
   const handleTabChange = (newValue: string | number) => {
     setActiveTab(newValue as string);
-    setLoading(true);
-    
-    // In a real app, this would fetch different data based on the tab
-    setTimeout(() => {
-      setLoading(false);
-      setReviews(MOCK_REVIEWS);
-    }, 500);
+    // The useEffect hook will handle fetching the data when activeTab changes
   };
 
   // Handle search
-  const handleSearch = (value: string) => {
+  const handleSearch = async (value: string) => {
     setSearchQuery(value);
     setLoading(true);
     
-    // In a real app, this would search reviews
-    setTimeout(() => {
-      const filtered = MOCK_REVIEWS.filter(review => 
-        review.title.toLowerCase().includes(value.toLowerCase()) ||
-        review.content.toLowerCase().includes(value.toLowerCase()) ||
-        review.bookTitle.toLowerCase().includes(value.toLowerCase())
-      );
-      setReviews(filtered);
+    try {
+      // In a real implementation, we'd have a dedicated search endpoint
+      // For now, we'll fetch all reviews and filter on the client side
+      const result = await getAllReviews(1, 50); // Get more reviews to search through
+      
+      // Process and filter reviews
+      const processedReviews = await Promise.all(result.items.map(async (review) => {
+        try {
+          const book = await BookService.getBookById(review.bookId);
+          
+          // Create a searchable version of the review
+          const searchableReview = {
+            id: review.id,
+            userId: review.userId,
+            username: 'User',
+            userAvatar: '',
+            rating: review.rating,
+            title: book?.title || 'Unknown Book',
+            content: review.text,
+            date: review.createdAt,
+            bookTitle: book?.title || 'Unknown Book',
+            bookId: review.bookId,
+            upvotes: review.likes?.length || 0,
+            downvotes: 0,
+            tags: book?.genres || [],
+          };
+          
+          // Check if it matches the search query
+          if (value && (
+            searchableReview.title.toLowerCase().includes(value.toLowerCase()) ||
+            searchableReview.content.toLowerCase().includes(value.toLowerCase()) ||
+            searchableReview.bookTitle.toLowerCase().includes(value.toLowerCase())
+          )) {
+            return searchableReview;
+          }
+          return null;
+        } catch (err) {
+          console.error('Error processing review:', err);
+          return null;
+        }
+      }));
+      
+      const filteredReviews = processedReviews.filter(Boolean);
+      setReviews(filteredReviews.length > 0 ? filteredReviews : []);
       setLoading(false);
-    }, 300);
+    } catch (err) {
+      console.error('Error searching reviews:', err);
+      setError('Failed to search reviews. Please try again later.');
+      setLoading(false);
+    }
   };
 
   // Handle voting
-  const handleUpvote = (reviewId: string) => {
+  const handleUpvote = async (reviewId: string) => {
     console.log(`Upvoted review ${reviewId}`);
-    // In a real app, this would call an API
+    // We would ideally call the toggleLikeReview API here
+    
+    // For now, just update the UI optimistically
     const updatedReviews = reviews.map(review =>
       review.id === reviewId
         ? { ...review, upvotes: review.upvotes + 1, isUserUpvoted: true }
@@ -165,8 +203,8 @@ const ReviewsPage = () => {
   };
 
   const handleDownvote = (reviewId: string) => {
+    // This is a placeholder since our API doesn't support downvotes
     console.log(`Downvoted review ${reviewId}`);
-    // In a real app, this would call an API
     const updatedReviews = reviews.map(review =>
       review.id === reviewId
         ? { ...review, downvotes: review.downvotes + 1, isUserDownvoted: true }
@@ -177,12 +215,67 @@ const ReviewsPage = () => {
 
   // Load initial data
   useEffect(() => {
-    // Simulate API call
-    setTimeout(() => {
-      setReviews(MOCK_REVIEWS);
-      setLoading(false);
-    }, 800);
-  }, []);
+    const fetchReviews = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        // Determine which endpoint to call based on active tab
+        let result;
+        
+        if (activeTab === 'recent') {
+          result = await getAllReviews(1, 10, 'createdAt', 'desc');
+        } else if (activeTab === 'popular') {
+          // For popular reviews, we'd ideally sort by likes count
+          result = await getAllReviews(1, 10, 'likes', 'desc');
+        } else if (activeTab === 'controversial') {
+          // For controversial, we might use a different endpoint or sort
+          result = await getAllReviews(1, 10, 'comments', 'desc');
+        } else if (activeTab === 'top-rated') {
+          result = await getAllReviews(1, 10, 'rating', 'desc');
+        } else {
+          result = await getAllReviews();
+        }
+        
+        // Process reviews to match the format expected by ReviewCard
+        const processedReviews = await Promise.all(result.items.map(async (review) => {
+          try {
+            // Get book details for each review
+            const book = await BookService.getBookById(review.bookId);
+            
+            return {
+              id: review.id,
+              userId: review.userId,
+              username: 'User', // We should ideally fetch username from user service
+              userAvatar: '',
+              rating: review.rating,
+              title: book?.title || 'Unknown Book',
+              content: review.text,
+              date: review.createdAt,
+              bookTitle: book?.title || 'Unknown Book',
+              bookId: review.bookId,
+              upvotes: review.likes?.length || 0,
+              downvotes: 0, // Our API doesn't have downvotes
+              tags: book?.genres || [],
+            };
+          } catch (err) {
+            console.error('Error processing review:', err);
+            return null;
+          }
+        }));
+        
+        setReviews(processedReviews.filter(Boolean));
+        setLoading(false);
+      } catch (err) {
+        console.error('Error fetching reviews:', err);
+        setError('Failed to load reviews. Please try again later.');
+        setReviews(MOCK_REVIEWS); // Fallback to mock data
+        setLoading(false);
+      }
+    };
+    
+    fetchReviews();
+  }, [activeTab]);
 
   return (
     <>

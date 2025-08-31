@@ -8,11 +8,15 @@ import {
   updateReview,
   deleteReview,
   toggleLike,
-  addComment
+  addComment,
+  getAllReviews
 } from '../controllers/review.controller';
 import { authMiddleware } from '../middlewares/auth.middleware';
 
 const router = Router();
+
+// Get all reviews
+router.get('/', getAllReviews);  // Handles /api/v1/reviews
 
 // Book reviews endpoints - for backward compatibility
 router.get('/books/:bookId', getBookReviews);  // Handles /api/v1/reviews/books/:bookId

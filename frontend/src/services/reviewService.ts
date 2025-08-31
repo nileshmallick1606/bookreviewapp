@@ -185,3 +185,45 @@ export const addReviewComment = async (reviewId: string, text: string): Promise<
   const response = await api.post(`/reviews/${reviewId}/comment`, { text });
   return response.data.data;
 };
+
+/**
+ * Get all reviews with pagination and sorting
+ * @param page - Page number (default: 1)
+ * @param limit - Reviews per page (default: 10)
+ * @param sortBy - Field to sort by (default: 'createdAt')
+ * @param sortOrder - Sort order (default: 'desc')
+ * @returns Paginated reviews
+ */
+export const getAllReviews = async (
+  page: number = 1,
+  limit: number = 10,
+  sortBy: string = 'createdAt',
+  sortOrder: 'asc' | 'desc' = 'desc'
+): Promise<PaginatedResponse<Review>> => {
+  try {
+    const response = await api.get(`/reviews`, {
+      params: {
+        page,
+        limit,
+        sortBy,
+        sortOrder
+      }
+    });
+    
+    return {
+      items: response.data.data.reviews,
+      pagination: response.data.data.pagination
+    };
+  } catch (error) {
+    console.error('Error fetching reviews:', error);
+    return {
+      items: [],
+      pagination: {
+        total: 0,
+        page,
+        limit,
+        totalPages: 0
+      }
+    };
+  }
+};

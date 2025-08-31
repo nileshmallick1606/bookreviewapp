@@ -6,7 +6,8 @@ import {
   updateReviewById,
   deleteReviewById,
   toggleReviewLike,
-  addCommentToReview
+  addCommentToReview,
+  getAllReviewsWithPagination
 } from '../services/review/review.service';
 import { getReviewsByUser } from '../services/review/user-reviews.service';
 import { calculateAverageRating } from '../services/book/book.service';
@@ -524,6 +525,49 @@ export const addComment = async (req: Request, res: Response): Promise<void> => 
     res.status(500).json({
       status: 'error',
       error: { code: 500, message: 'Failed to add comment' },
+      data: null
+    });
+  }
+};
+
+/**
+ * Get all reviews with pagination, sorting, and filtering
+ * @param req Express request object
+ * @param res Express response object
+ */
+export const getAllReviews = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 10;
+    const sortBy = (req.query.sortBy as string) || 'createdAt';
+    const sortOrder = (req.query.sortOrder as string) || 'desc';
+    
+    const { reviews, total, totalPages } = await getAllReviewsWithPagination(
+      page,
+      limit,
+      sortBy,
+      sortOrder
+    );
+    
+    res.status(200).json({
+      status: 'success',
+      data: {
+        reviews,
+        pagination: {
+          total,
+          page,
+          limit,
+          totalPages
+        }
+      },
+      error: null
+    });
+  } catch (error) {
+    console.error('Error getting all reviews:', error);
+    
+    res.status(500).json({
+      status: 'error',
+      error: { code: 500, message: 'Failed to retrieve reviews' },
       data: null
     });
   }
