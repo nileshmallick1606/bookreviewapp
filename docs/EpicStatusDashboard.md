@@ -19,7 +19,7 @@ This document tracks the overall status of each Epic within the BookReview Platf
 | EPIC11 | Testing & QA | In Progress 🔄 | - | 0/25 | - |
 | EPIC12 | Deployment & DevOps | Not Started ⏹ | - | 0/19 | - |
 | EPIC13 | Security Implementation | Not Started ⏹ | - | 0/14 | - |
-| EPIC14 | Documentation | Near Completion ⏳ | August 31, 2025 | 15/16 | [Progress Report](./reports/Epic14_Progress_Report.md) |
+| EPIC14 | Documentation | Near Completion ⏳ | August 31, 2025 | 15.5/16 | [Progress Report](./reports/Epic14_Progress_Report.md) |
 
 ## Recently Completed Epics
 
@@ -156,14 +156,14 @@ This document tracks the overall status of each Epic within the BookReview Platf
 - Developed detailed developer guides and onboarding materials
 - Created user guides with visual walkthroughs and troubleshooting
 - Completed system architecture documentation with detailed diagrams
+- Created comprehensive video tutorial scripts and accessibility standards
 
 **Current Focus:**
-- Creating video tutorials for key user journeys
 - Developing training materials for knowledge transfer
 - Final review and cross-linking of documentation
+- Planning video recording sessions
 
 **Next Steps:**
-- Complete US_14.2: User Documentation (video tutorials)
 - Complete US_14.3: Knowledge Transfer & Training (training materials)
 
 **See progress details in the [Epic14 Progress Report](./reports/Epic14_Progress_Report.md)**
