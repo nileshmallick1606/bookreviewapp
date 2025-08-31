@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Book } from '../../services/bookService';
@@ -40,6 +40,10 @@ interface BookGridProps {
    * Optional className for styling
    */
   className?: string;
+  /**
+   * Callback when a book is added or removed from favorites
+   */
+  onFavoriteChange?: (bookId: string, isFavorite: boolean) => void;
 }
 
 /**
@@ -51,6 +55,7 @@ const BookGrid: React.FC<BookGridProps> = ({
   loadingCount = 6,
   noResultsMessage = 'No books found',
   className,
+  onFavoriteChange,
 }) => {
   // If loading, render placeholder cards
   if (isLoading) {
@@ -81,7 +86,10 @@ const BookGrid: React.FC<BookGridProps> = ({
     <GridContainer container spacing={3} className={className}>
       {books.map((book) => (
         <Grid item xs={6} sm={4} md={3} lg={2} key={book.id}>
-          <BookCard book={book} />
+          <BookCard 
+            book={book} 
+            onFavoriteChange={onFavoriteChange}
+          />
         </Grid>
       ))}
     </GridContainer>

@@ -20,6 +20,7 @@ import {
   AccountCircle as AccountIcon,
   Login as LoginIcon,
   PersonAdd as RegisterIcon,
+  Favorite as FavoriteIcon,
 } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -147,6 +148,14 @@ const MobileNav: React.FC<MobileNavProps> = ({ className }) => {
                       <ReviewsIcon />
                     </ListItemIcon>
                     <ListItemText primary="My Reviews" />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={() => handleNavigation('/my-favorites')}>
+                    <ListItemIcon>
+                      <FavoriteIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="My Favorites" />
                   </ListItemButton>
                 </ListItem>
                 <Divider sx={{ my: 1 }} />

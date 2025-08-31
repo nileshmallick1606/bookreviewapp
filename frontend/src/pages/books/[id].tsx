@@ -14,13 +14,16 @@ import {
   Alert,
   Breadcrumbs,
   Link as MuiLink,
-  Tooltip
+  Tooltip,
+  Snackbar
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
 import ShareIcon from '@mui/icons-material/Share';
 import Link from 'next/link';
 import { BookService, Book } from '../../services/bookService';
+import { addToFavorites, removeFromFavorites, getFavoriteBooks } from '../../services/favoriteService';
 import ReviewForm from '../../components/reviews/ReviewForm';
 import ReviewList from '../../components/reviews/ReviewList';
 import { useAppSelector } from '../../hooks/reduxHooks';
@@ -35,6 +38,10 @@ const BookDetailPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [reviewListKey, setReviewListKey] = useState(0); // Add a key to force refresh the review list
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [favoritesLoading, setFavoritesLoading] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
   
   // Get auth state from Redux
   const { user, isAuthenticated } = useAppSelector((state) => state.auth);
@@ -60,10 +67,67 @@ const BookDetailPage: React.FC = () => {
       fetchBookDetails();
     }
   }, [id]);
+  
+  // Check if the book is in user's favorites
+  useEffect(() => {
+    const checkIfFavorite = async () => {
+      if (!user || !id) return;
+      
+      try {
+        setFavoritesLoading(true);
+        const favorites = await getFavoriteBooks(user.id);
+        setIsFavorite(favorites.includes(id as string));
+      } catch (err) {
+        console.error('Error checking favorite status:', err);
+      } finally {
+        setFavoritesLoading(false);
+      }
+    };
+
+    if (isAuthenticated && user) {
+      checkIfFavorite();
+    }
+  }, [id, user, isAuthenticated]);
 
   // Handle back navigation
   const handleBack = () => {
     router.back();
+  };
+  
+  // Handle toggling favorite status
+  const handleToggleFavorite = async () => {
+    if (!isAuthenticated || !user || !id) {
+      setSnackbarMessage('Please log in to save favorites');
+      setSnackbarOpen(true);
+      return;
+    }
+    
+    try {
+      setFavoritesLoading(true);
+      
+      if (isFavorite) {
+        await removeFromFavorites(user.id, id as string);
+        setIsFavorite(false);
+        setSnackbarMessage('Removed from favorites');
+      } else {
+        await addToFavorites(user.id, id as string);
+        setIsFavorite(true);
+        setSnackbarMessage('Added to favorites');
+      }
+      
+      setSnackbarOpen(true);
+    } catch (err) {
+      console.error('Error toggling favorite status:', err);
+      setSnackbarMessage('Failed to update favorites');
+      setSnackbarOpen(true);
+    } finally {
+      setFavoritesLoading(false);
+    }
+  };
+  
+  // Handle snackbar close
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
   };
 
   if (loading) {
@@ -152,11 +216,14 @@ const BookDetailPage: React.FC = () => {
               {/* Action buttons */}
               <Box sx={{ width: '100%', mt: 2, display: 'flex', gap: 1 }}>
                 <Button 
-                  variant="outlined" 
-                  startIcon={<BookmarkBorderIcon />}
+                  variant={isFavorite ? "contained" : "outlined"}
+                  color={isFavorite ? "primary" : "inherit"}
+                  startIcon={isFavorite ? <BookmarkIcon /> : <BookmarkBorderIcon />}
                   fullWidth
+                  onClick={handleToggleFavorite}
+                  disabled={favoritesLoading}
                 >
-                  Save
+                  {isFavorite ? 'Saved' : 'Save'}
                 </Button>
                 <Button 
                   variant="outlined"
@@ -320,6 +387,15 @@ const BookDetailPage: React.FC = () => {
           </Grid>
         </Grid>
       </Container>
+      
+      {/* Snackbar for notifications */}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+        message={snackbarMessage}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      />
     </>
   );
 };

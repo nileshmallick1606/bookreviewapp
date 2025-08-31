@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Card, 
   CardContent, 
@@ -7,13 +7,19 @@ import {
   Box,
   Chip,
   CardActionArea,
-  Skeleton
+  Skeleton,
+  IconButton,
+  Tooltip
 } from '@mui/material';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import RatingDisplay from '../common/RatingDisplay';
 import { useRouter } from 'next/router';
 import { Book } from '../../services/bookService';
 import { styled } from '@mui/material/styles';
 import ResponsiveImage from '../common/ResponsiveImage';
+import { useAppSelector } from '../../hooks/reduxHooks';
+import { getFavoriteBooks, addToFavorites, removeFromFavorites } from '../../services/favoriteService';
 
 // Styled components for enhanced visual appearance
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -41,6 +47,10 @@ interface BookCardProps {
    * Optional className for styling
    */
   className?: string;
+  /**
+   * Callback when favorite status changes
+   */
+  onFavoriteChange?: (bookId: string, isFavorite: boolean) => void;
 }
 
 /**
@@ -51,9 +61,32 @@ const BookCard: React.FC<BookCardProps> = ({
   book, 
   isLoading = false,
   coverAspectRatio = 0.67, // Default book cover ratio (2:3)
-  className
+  className,
+  onFavoriteChange
 }) => {
   const router = useRouter();
+  const { user, isAuthenticated } = useAppSelector(state => state.auth);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  // Check if book is in user's favorites when component loads
+  useEffect(() => {
+    const checkIfFavorite = async () => {
+      if (!user || !isAuthenticated) return;
+      
+      try {
+        setLoading(true);
+        const favorites = await getFavoriteBooks(user.id);
+        setIsFavorite(favorites.includes(book.id));
+      } catch (err) {
+        console.error('Error checking favorite status:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkIfFavorite();
+  }, [book.id, user, isAuthenticated]);
   
   // Truncate description to a reasonable length
   const truncateText = (text: string, maxLength: number = 100) => {
@@ -64,6 +97,38 @@ const BookCard: React.FC<BookCardProps> = ({
   // Handle click to navigate to book details
   const handleClick = () => {
     router.push(`/books/${book.id}`);
+  };
+  
+  // Handle toggling favorite status
+  const handleToggleFavorite = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    
+    if (!isAuthenticated || !user) {
+      router.push('/auth/login');
+      return;
+    }
+    
+    try {
+      setLoading(true);
+      
+      if (isFavorite) {
+        await removeFromFavorites(user.id, book.id);
+        setIsFavorite(false);
+        if (onFavoriteChange) {
+          onFavoriteChange(book.id, false);
+        }
+      } else {
+        await addToFavorites(user.id, book.id);
+        setIsFavorite(true);
+        if (onFavoriteChange) {
+          onFavoriteChange(book.id, true);
+        }
+      }
+    } catch (err) {
+      console.error('Error toggling favorite status:', err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   // Render loading skeleton if isLoading is true
@@ -96,6 +161,29 @@ const BookCard: React.FC<BookCardProps> = ({
     <StyledCard className={className}>
       <CardActionArea onClick={handleClick} sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
         <Box sx={{ position: 'relative' }}>
+          {/* Favorite button */}
+          <Tooltip title={isAuthenticated ? (isFavorite ? 'Remove from favorites' : 'Add to favorites') : 'Sign in to add favorites'}>
+            <IconButton
+              onClick={handleToggleFavorite}
+              disabled={loading}
+              sx={{
+                position: 'absolute',
+                top: 8,
+                right: 8,
+                zIndex: 1,
+                backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                '&:hover': {
+                  backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                }
+              }}
+            >
+              {isFavorite ? (
+                <FavoriteIcon color="error" />
+              ) : (
+                <FavoriteBorderIcon />
+              )}
+            </IconButton>
+          </Tooltip>
           {/* Use ResponsiveImage for better mobile experience */}
           <ResponsiveImage
             src={book.coverImage || '/images/book-placeholder.jpg'}
