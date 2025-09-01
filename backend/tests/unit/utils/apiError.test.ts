@@ -2,33 +2,36 @@
  * Tests for API Error utility
  */
 
+import { jest, describe, it, expect } from '@jest/globals';
 import { ApiError } from '../../../src/utils/apiError';
 
 describe('ApiError', () => {
-  it('should create an error with default code', () => {
-    const error = new ApiError('Test error');
+  describe('Basic functionality', () => {
+    it('should create an error with default code', () => {
+      const error = new ApiError('Test error');
+      
+      expect(error).toBeInstanceOf(Error);
+      expect(error).toBeInstanceOf(ApiError);
+      expect(error.message).toBe('Test error');
+      expect(error.code).toBe(500);
+      expect(error.data).toBeUndefined();
+    });
     
-    expect(error).toBeInstanceOf(Error);
-    expect(error).toBeInstanceOf(ApiError);
-    expect(error.message).toBe('Test error');
-    expect(error.code).toBe(500);
-    expect(error.data).toBeUndefined();
-  });
-  
-  it('should create an error with specified code', () => {
-    const error = new ApiError('Not found', 404);
+    it('should create an error with specified code', () => {
+      const error = new ApiError('Not found', 404);
+      
+      expect(error.message).toBe('Not found');
+      expect(error.code).toBe(404);
+    });
     
-    expect(error.message).toBe('Not found');
-    expect(error.code).toBe(404);
-  });
-  
-  it('should include optional data', () => {
-    const errorData = { field: 'email', reason: 'already exists' };
-    const error = new ApiError('Validation error', 400, errorData);
-    
-    expect(error.message).toBe('Validation error');
-    expect(error.code).toBe(400);
-    expect(error.data).toEqual(errorData);
+    it('should include optional data', () => {
+      const errorData = { field: 'email', reason: 'already exists' };
+      const error = new ApiError('Validation error', 400, errorData);
+      
+      expect(error.message).toBe('Validation error');
+      expect(error.code).toBe(400);
+      expect(error.data).toEqual(errorData);
+    });
   });
   
   it('should convert to JSON correctly', () => {
