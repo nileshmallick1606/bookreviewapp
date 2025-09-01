@@ -108,6 +108,7 @@ export const login = async (data: LoginData & { rememberMe?: boolean }): Promise
  * @returns Promise with user data or error
  */
 export const getCurrentUser = async (): Promise<AuthResponse> => {
+  console.log("Fetching current user...");
   try {
     const response = await axios.get<AuthResponse>(
       `${API_BASE_URL}/auth/me`,

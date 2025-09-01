@@ -34,6 +34,7 @@ router.post('/password-reset/:token', resetPassword);
 
 // Protected endpoint example - get current user
 router.get('/me', authenticate, (req, res) => {
+  console.log("Fetching current user...");
   res.status(200).json({
     status: 'success',
     data: {
